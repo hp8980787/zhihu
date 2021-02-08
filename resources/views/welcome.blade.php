@@ -82,7 +82,7 @@
             <div class="content">
 
                 <div class="title m-b-md">
-                    Laravel
+                ZHIHU
                 </div>
 
                 <div class="links">

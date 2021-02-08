@@ -90,7 +90,9 @@
     </div>
 
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <script>
+        window.laravel = {{ json_encode(csrf_token()) }}
+    </script>
 
 </body>
 </html>
