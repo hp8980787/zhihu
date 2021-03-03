@@ -8,6 +8,11 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ $questions->title }}</div>
+                    <div> <ul class="list-inline">
+                            @foreach($questions->topics as $topic)
+                                <li class="list-inline-item">{{ $topic->name }}</li>
+                            @endforeach
+                        </ul></div>
 
                     <div class="card-body">
 

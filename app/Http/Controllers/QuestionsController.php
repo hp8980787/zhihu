@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class QuestionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,17 +43,18 @@ class QuestionsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=>'required|min:5|max:255',
-            'body'=>'required'
+            'title' => 'required|min:5|max:255',
+            'body' => 'required'
         ]);
+        $topics = $this->normalizeTopic($request->get('topics'));
         $data = [
             'title' => $request->title,
             'body' => $request->body,
-            'user_id' =>Auth::id(),
+            'user_id' => Auth::id(),
         ];
         $questions = Question::query()->create($data);
-
-        return redirect()->route('questions.show',[$questions->id]);
+        $questions->topics()->attach($topics);
+        return redirect()->route('questions.show', [$questions->id]);
     }
 
     /**
@@ -58,8 +65,8 @@ class QuestionsController extends Controller
      */
     public function show($id)
     {
-        $questions = Question::find($id);
-        return  view('questions.show',compact('questions'));
+        $questions = Question::query()->with('topics')->find($id);
+        return view('questions.show', compact('questions'));
     }
 
     /**
@@ -94,5 +101,17 @@ class QuestionsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function normalizeTopic(array $topics)
+    {
+        return  collect($topics)->map(function ($topic) {
+            if (is_numeric($topic)) {
+                Topic::query()->find($topic)->increment('questions_count');
+                return (int)$topic;
+            }
+            $newTopic = Topic::query()->create(['name'=>$topic,'questions_count'=>1]);
+            return $newTopic->id;
+        })->toArray();
     }
 }

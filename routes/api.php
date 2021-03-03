@@ -16,3 +16,10 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('api')->get('/topics', function (Request $request) {
+
+    $topics = \App\Topic::query()->where('name','like',"%{$request->search}%")
+        ->get(['id','name as text']);
+    return ['results'=>$topics];
+});
