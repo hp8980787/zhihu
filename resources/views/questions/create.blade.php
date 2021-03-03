@@ -14,7 +14,7 @@
                             @csrf
                             <div class="form-group">
                                 <label for="title">标题</label>
-                                <input type="text" name="title" class="form-control" value="" id="title"
+                                <input type="text" name="title" class="form-control" value="{{ old('title') }}" id="title"
                                        placeholder="标题">
                                 @if($errors->has('title'))
                                     <span class="help-block " style="color: #00a2d4">
@@ -24,7 +24,7 @@
                             </div>
 
                             <!-- 编辑器容器 -->
-                            <script id="container" name="body" type="text/plain"></script>
+                            <script id="container" name="body" type="text/plain">{{ old('body') }}</script>
                             @if($errors->has('body'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('body') }}</strong>
