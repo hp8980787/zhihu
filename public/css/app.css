@@ -10950,3 +10950,31 @@ a.text-dark:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.topics {
+  padding-left: 20px;
+}
+
+.topics li {
+  border-style: solid;
+  border-color: #00a0e9;
+  border-radius: 15px;
+  background-color: orangered;
+}
+
+.topics li a {
+  padding: 10px;
+  color: white;
+}
+
+.topics li a:hover {
+  color: #00a0e9;
+}
+
+.action {
+  margin-left: 20px;
+}
+
+.card-header h1 {
+  font-size: 20px;
+}
+

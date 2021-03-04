@@ -7,17 +7,32 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ $questions->title }}</div>
-                    <div> <ul class="list-inline">
-                            @foreach($questions->topics as $topic)
-                                <li class="list-inline-item">{{ $topic->name }}</li>
-                            @endforeach
-                        </ul></div>
+
+                    <div class="card-header">
+                        <div class="float-left" >
+                                <h1>{{ $question->title }}</h1>
+                        </div>
+
+
+                        <div class="action float-right">
+                            @if(Auth::check() && Auth::user()->owns($question))
+                                <span class="edit"><button class="btn btn-info"><a
+                                            href="{{ route('questions.edit',$question->id) }}">编辑</a></button></span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <ul class="list-inline topics">
+                        @foreach($question->topics as $topic)
+                            <li class="list-inline-item"><a href="#">{{ $topic->name }}</a></li>
+                        @endforeach
+                    </ul>
 
                     <div class="card-body">
 
-                        {!! $questions->body !!}
+                        {!! $question->body !!}
                     </div>
+
                 </div>
             </div>
         </div>
