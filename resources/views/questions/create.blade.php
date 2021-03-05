@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
     @include('vendor.ueditor.assets')
     <div class="container">
@@ -23,12 +24,19 @@
                                     </span>
                                 @endif
                             </div>
-                            <div class="form-group">
-                                <select name="topics[]" class="js-example-placeholder-multiple form-control" multiple="multiple" ></select>
+                            <div class="form-group" >
+                                <select  name="topics[]" class="js-example-placeholder-multiple form-control"
+                                        multiple="multiple"></select>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group questions-editor">
+
                                 <!-- 编辑器容器 -->
-                                <script id="container" name="body" type="text/plain">{{ old('body') }}</script>
+                                <div name="body" id="editor" >
+                                    <p>Hello World!</p>
+                                    <p>Some initial <strong>bold</strong> text</p>
+                                    <p><br></p>
+                                    <textarea hidden name="body" id="text1" style="width:100%; height:200px;"></textarea>
+                                </div>
                                 @if($errors->has('body'))
                                     <span class="help-block">
                                     <strong>{{ $errors->first('body') }}</strong>
@@ -47,25 +55,15 @@
 
 @endsection
 @section('footer-js')
-    <!-- 配置文件 -->
-    <script type="text/javascript" src="{{ asset('vendor/ueditor/ueditor.config.js') }}"></script>
 
-    <script type="text/javascript" src="{{ asset('vendor/ueditor/ueditor.all.js') }}"></script>
-    <script>
-        window.UEDITOR_CONFIG.serverUrl = '{{ config('ueditor.route.name') }}'
-    </script>
+    <!-- 配置文件 -->
+    <script src="/ckeditor/ckeditor.js"></script>
+
+
     <script type="text/javascript">
-        var ue = UE.getEditor('container');
-        ue.ready(function () {
-            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
-        });
+
         // In your Javascript (external .js resource or <script> tag)
         $(document).ready(function () {
-
-
-            function formatTopicSelection(topic) {
-                return topic.name || topic.text;
-            }
 
             $(".js-example-placeholder-multiple").select2({
                 tags: true,

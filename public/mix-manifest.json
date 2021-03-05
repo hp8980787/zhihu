@@ -1,4 +1,5 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/ckeditor/ckeditor.js": "/ckeditor/ckeditor.js?id=d7696c818bc03236d6bd",
+    "/js/app.js": "/js/app.js?id=0bff4692370c0902243e",
+    "/css/app.css": "/css/app.css?id=0e37aacc04d1bac099ce"
 }

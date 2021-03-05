@@ -30,9 +30,12 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group questions-editor">
                                 <!-- 编辑器容器 -->
-                                <script id="container" name="body" type="text/plain">{{ old('body',$question->body) }}</script>
+                                <div name="body" id="editor" >
+
+                                    <textarea hidden name="body" id="text1" style="width:100%; height:200px;">{!! $question->body !!}</textarea>
+                                </div>
                                 @if($errors->has('body'))
                                     <span class="help-block">
                                     <strong>{{ $errors->first('body') }}</strong>
@@ -52,24 +55,14 @@
 @endsection
 @section('footer-js')
     <!-- 配置文件 -->
-    <script type="text/javascript" src="{{ asset('vendor/ueditor/ueditor.config.js') }}"></script>
+    <!-- 配置文件 -->
+    <script src="/ckeditor/ckeditor.js"></script>
 
-    <script type="text/javascript" src="{{ asset('vendor/ueditor/ueditor.all.js') }}"></script>
-    <script>
-        window.UEDITOR_CONFIG.serverUrl = '{{ config('ueditor.route.name') }}'
-    </script>
+
     <script type="text/javascript">
-        var ue = UE.getEditor('container');
-        ue.ready(function () {
-            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
-        });
+
         // In your Javascript (external .js resource or <script> tag)
         $(document).ready(function () {
-
-
-            function formatTopicSelection(topic) {
-                return topic.name || topic.text;
-            }
 
             $(".js-example-placeholder-multiple").select2({
                 tags: true,

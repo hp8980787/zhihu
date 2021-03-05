@@ -46,6 +46,8 @@ class QuestionsController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $request->validate([
             'title' => 'required|min:5|max:255',
             'body' => 'required'
@@ -108,7 +110,7 @@ class QuestionsController extends Controller
         ]);
         $question->topics()->sync($this->questionsRepository->normalizeTopic($request->topics));
 
-        return redirect()->route('questions.show',$id);
+        return redirect()->route('questions.show', $id);
     }
 
     /**

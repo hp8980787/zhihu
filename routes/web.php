@@ -22,3 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('questions','QuestionsController',[
     'names'=>'questions',
 ]);
+
+Route::post('/upload-imgs','UploadController@upload');
