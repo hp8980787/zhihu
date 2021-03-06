@@ -25,7 +25,9 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        return 'index';
+        $questions = Question::query()->with('user')->latest('updated_at')->paginate(15);
+
+        return view('questions.index', compact('questions'));
     }
 
     /**
@@ -121,7 +123,9 @@ class QuestionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $this->questionsRepository->destroy($id);
+        return redirect()->route('questions.index')->with('success','删除成功!');
     }
 
 

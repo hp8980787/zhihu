@@ -34,4 +34,10 @@ class QuestionsRepository
             return $newTopic->id;
         })->toArray();
     }
+
+    public function destroy($id)
+    {
+        return Question::query()->where('id',$id)->delete();
+
+    }
 }

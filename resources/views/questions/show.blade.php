@@ -18,6 +18,11 @@
                             @if(Auth::check() && Auth::user()->owns($question))
                                 <span class="edit"><button class="btn btn-info"><a
                                             href="{{ route('questions.edit',$question->id) }}">编辑</a></button></span>
+                                <form action="{{ route('questions.destroy',$question->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="btn btn-warning" type="submit">删除</button>
+                                </form>
                             @endif
                         </div>
                     </div>
