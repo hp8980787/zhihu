@@ -33,10 +33,10 @@
                             <div class="form-group questions-editor">
                                 <!-- 编辑器容器 -->
                                 <div name="body" id="editor" >
-
-                                    <textarea hidden name="body" id="text1" style="width:100%; height:200px;">{!! $question->body !!}</textarea>
+                                    {!! $question->body !!}
                                 </div>
-                                @if($errors->has('body'))
+                                <textarea hidden name="body" id="text1" style="width:100%; height:200px;"></textarea>
+                            @if($errors->has('body'))
                                     <span class="help-block">
                                     <strong>{{ $errors->first('body') }}</strong>
                                 </span>
@@ -56,7 +56,7 @@
 @section('footer-js')
     <!-- 配置文件 -->
     <!-- 配置文件 -->
-    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="/js/ckeditor/ckeditor.js"></script>
 
 
     <script type="text/javascript">

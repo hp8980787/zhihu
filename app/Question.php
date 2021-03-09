@@ -12,9 +12,7 @@ class Question extends Model
     public static function boot()
     {
         parent::boot();
-        static::addGlobalScope('is_hidden', function (Builder $builder) {
-            $builder->where('is_hidden', 'F');
-        });
+
 
     }
 
@@ -28,6 +26,11 @@ class Question extends Model
         return $value . '.jpg';
     }
 
+    public function scopePublished($query)
+    {
+        return $query->where('is_hidden', 'F');
+    }
+
     public function topics()
     {
         return $this->belongsToMany(Topic::class)->withTimestamps();
@@ -36,5 +39,10 @@ class Question extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\User;
 use App\Topic;
+use App\Question;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -32,5 +33,14 @@ $factory->define(Topic::class, function (Faker $faker) {
         'name' => $faker->word,
         'bio'=>$faker->paragraph,
         'questions_count'=>1,
+    ];
+});
+
+$factory->define(Question::class, function (Faker $faker) {
+    return [
+        'user_id' => User::all()->random()->id,
+        'title' => $faker->title,
+        'body'=>$faker->text(300),
+
     ];
 });

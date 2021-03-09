@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'QuestionsController@index');
 
 Auth::routes(['verify' => true]);
 
@@ -24,3 +22,5 @@ Route::resource('questions','QuestionsController',[
 ]);
 
 Route::post('/upload-imgs','UploadController@upload');
+
+Route::post('questions/{question}/answer','AnswersController@store')->name('answers.store');

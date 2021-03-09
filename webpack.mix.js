@@ -11,5 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').js('resources/js/js/ckeditor.js','public/ckeditor')
+mix.js('resources/js/app.js', 'public/js').js('resources/js/js/ckeditor.js','public/js/ckeditor')
+    .js('resources/js/js/tiny.js','public/js/tiny').sass('resources/sass/css/tinymce.scss','public/css/tiny')
    .sass('resources/sass/app.scss', 'public/css').version();

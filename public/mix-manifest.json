@@ -1,5 +1,7 @@
 {
-    "/ckeditor/ckeditor.js": "/ckeditor/ckeditor.js?id=d7696c818bc03236d6bd",
-    "/js/app.js": "/js/app.js?id=0bff4692370c0902243e",
-    "/css/app.css": "/css/app.css?id=0e37aacc04d1bac099ce"
+    "/js/app.js": "/js/app.js?id=cbec17ea002dd9a51ffd",
+    "/css/tiny/tinymce.css": "/css/tiny/tinymce.css?id=f1ecc325e6db408d2706",
+    "/css/app.css": "/css/app.css?id=8bacd32d456cde1bb767",
+    "/js/ckeditor/ckeditor.js": "/js/ckeditor/ckeditor.js?id=ff09bc020f12e16a62dd",
+    "/js/tiny/tiny.js": "/js/tiny/tiny.js?id=2ac72a193543959a86bd"
 }

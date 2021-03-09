@@ -25,7 +25,7 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        $questions = Question::query()->with('user')->latest('updated_at')->paginate(15);
+        $questions = Question::query()->published()->with(['user','answers'])->latest('updated_at')->paginate(15);
 
         return view('questions.index', compact('questions'));
     }

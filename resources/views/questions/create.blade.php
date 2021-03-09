@@ -2,7 +2,6 @@
 
 
 @section('content')
-    @include('vendor.ueditor.assets')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -31,13 +30,13 @@
                             <div class="form-group questions-editor">
 
                                 <!-- 编辑器容器 -->
-                                <div name="body" id="editor" >
+                                <div  id="editor" >
                                     <p>Hello World!</p>
                                     <p>Some initial <strong>bold</strong> text</p>
                                     <p><br></p>
-                                    <textarea hidden name="body" id="text1" style="width:100%; height:200px;"></textarea>
                                 </div>
-                                @if($errors->has('body'))
+                                <textarea hidden name="body" id="text1" style="width:100%; height:200px;"></textarea>
+                            @if($errors->has('body'))
                                     <span class="help-block">
                                     <strong>{{ $errors->first('body') }}</strong>
                                 </span>
@@ -55,9 +54,9 @@
 
 @endsection
 @section('footer-js')
-
+    <script src="/js/select2/select2.js"></script>
     <!-- 配置文件 -->
-    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="/js/ckeditor/ckeditor.js"></script>
 
 
     <script type="text/javascript">

@@ -25507,6 +25507,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var editor = new wangeditor__WEBPACK_IMPORTED_MODULE_0___default.a('#editor'); // 或者 const editor = new E( document.getElementById('div1') )
 
+editor.config.placeholder = '请填写你的答案';
 var $text1 = $('#text1');
 
 editor.config.onchange = function (html) {
@@ -25514,6 +25515,8 @@ editor.config.onchange = function (html) {
   $text1.val(html);
 };
 
+editor.config.menus = ['bold', 'head', 'link', 'italic', 'underline', 'image'];
+editor.config.height = 200;
 editor.config.uploadImgServer = '/upload-imgs';
 editor.config.uploadImgMaxSize = 2 * 1024 * 1024; // 2M
 
