@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar'
+        'name', 'email', 'password', 'avatar','api_token'
     ];
 
     /**
@@ -46,6 +46,23 @@ class User extends Authenticatable implements MustVerifyEmail
     public function owns(Model $model)
     {
         return $this->id == $model->user_id;
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany(Question::class, 'user_question')->withTimestamps();
+
+    }
+
+    public function followThis($question)
+    {
+        return $this->follows()->toggle($question);
+    }
+
+    public function followed($question)
+    {
+
+        return !! $this->follows()->where('question_id',$question)->count();
     }
 
 }

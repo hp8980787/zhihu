@@ -24,3 +24,5 @@ Route::resource('questions','QuestionsController',[
 Route::post('/upload-imgs','UploadController@upload');
 
 Route::post('questions/{question}/answer','AnswersController@store')->name('answers.store');
+
+Route::get('questions/{question}/follow','QuestionFollowController@follow')->name('questions.follow')->middleware('auth');
