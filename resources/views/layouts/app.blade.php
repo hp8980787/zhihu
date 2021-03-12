@@ -11,12 +11,16 @@
 
     <!-- Scripts -->
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    @if(Auth::check())
+    <meta name="Authorization" content="Bearer {{ Auth::user()->api_token }}">
+    @endif
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     @yield('header_css')
 </head>
 <body>
@@ -91,13 +95,7 @@
 
     <script src="{{ asset('js/app.js') }}"></script>
 
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script>
+
     @yield('footer-js')
 </body>
 </html>

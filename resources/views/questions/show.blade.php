@@ -95,24 +95,63 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card">
-                    <div class="card-header" style="text-align: center">
-                        <h4>{{ $question->followers_count }}</h4>
-                        <span>关注者</span>
-                    </div>
-                    <div class="card-body">
-                        @if(Auth::check())
-                            <question-follow-button question="{{ $question->id }}"
-                                                    user="{{ Auth::id() }}"></question-follow-button>
+                @if(Auth::check()&&Auth::id()!=$question->user_id)
+                    <question-follow-button question="{{ $question->id }}"></question-follow-button>
+                @elseif(Auth::check()&&Auth::id()==$question->user_id)
+                    <div class="card">
+                        <div class="card-header" style="text-align: center">
+                            <h4>{{ $question->followers_count }}</h4>
+                            <span>关注者</span>
+                        </div>
+                        <div class="card-body">
+                            <a class="btn btn-success" href="javascript:;">已关注该问题</a>
                             <a href="#">撰写答案</a>
-                        @else
+                        </div>
+                    </div>
+                @else
+                    <div class="card">
+                        <div class="card-header" style="text-align: center">
+                            <h4>{{ $question->followers_count }}</h4>
+                            <span>关注者</span>
+                        </div>
+                        <div class="card-body">
                             <a href="{{ route('login') }}">关注该问题</a>
-                            <a href="#">撰写答案</a>
-                        @endif
-
-
+                            <a href="{{ route('login') }}">撰写答案</a>
+                        </div>
                     </div>
+                @endif
+                <div class="cart about-author">
+                    <span>关于作者</span>
+                    <div class="cart-header clearfix">
+                        <div class="float-left"><img src="{{ $question->user->avatar }}"
+                                                     alt="{{ $question->user->name }}"></div>
+                        <div class="float-right">
+                            <h4>{{ $question->user->name }}</h4>
+                            <span>这是我的测试测试测....</span>
+                        </div>
+                    </div>
+                    <div class="cart-body author-item clearfix">
+                        <div class="float-left">
+                            <div>回答</div>
+                            <strong>1</strong>
+                        </div>
+                        <div class="float-left">
+                            <div>文章</div>
+                            <strong>1</strong>
+
+                        </div>
+                        <div class="float-left">
+                            <div>关注者</div>
+                            <strong>1</strong>
+                        </div>
+                    </div>
+
+                    <user-follow-button followed_id="{{ $question->user->id }}"></user-follow-button>
+                    <a href="#" class="btn btn-secondary">发私信</a>
+
+
                 </div>
+
             </div>
         </div>
 

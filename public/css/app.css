@@ -11008,3 +11008,24 @@ a.text-dark:focus {
   margin-top: 60px;
 }
 
+.about-author {
+  margin-top: 40px;
+}
+
+.about-author .cart-header {
+  padding-top: 10px;
+}
+
+.about-author .cart-header img {
+  width: 60px;
+}
+
+.author-item {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.author-item .float-left {
+  width: 33.3%;
+}
+

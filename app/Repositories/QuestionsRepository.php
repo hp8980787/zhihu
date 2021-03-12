@@ -15,7 +15,7 @@ class QuestionsRepository
 
     public function byIdWithTopics($id)
     {
-        return Question::query()->with('topics')->findOrFail($id);
+        return Question::query()->with(['topics','user'])->findOrFail($id);
     }
 
     public function create(array $attributes)

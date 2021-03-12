@@ -10,7 +10,6 @@
 @import "./css/select2.css";
 
 
-
 .navbar-laravel {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -75,4 +74,25 @@
 
 #editor {
     margin-top: 60px;
+}
+
+.about-author {
+    margin-top: 40px;
+
+    .cart-header {
+        padding-top: 10px;
+
+        img {
+            width: 60px;
+        }
+    }
+
+}
+
+.author-item {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    .float-left {
+        width: 33.3%;
+    }
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -17,7 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar','api_token'
+        'name', 'email', 'password', 'avatar', 'api_token'
     ];
 
     /**
@@ -48,6 +49,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->id == $model->user_id;
     }
 
+    public function followers()
+    {
+        return $this->belongsToMany(self::class,'followers','follower_id','followed_id')->withTimestamps();
+    }
+
+
     public function follows()
     {
         return $this->belongsToMany(Question::class, 'user_question')->withTimestamps();
@@ -62,7 +69,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function followed($question)
     {
 
-        return !! $this->follows()->where('question_id',$question)->count();
+        return !!$this->follows()->where('question_id', $question)->count();
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 
 }

@@ -17,35 +17,52 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     echo $request->user();
 });
 
-Route::middleware('api')->get('/topics', function (Request $request) {
+Route::group([
 
-    $topics = \App\Topic::query()->where('name','like',"%{$request->search}%")
-        ->get(['id','name as text']);
-    return ['results'=>$topics];
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
 });
 
-Route::post('/question/follower',function (Request $request){
+Route::middleware('api')->get('/topics', function (Request $request) {
 
-   $follow = \App\Follow::query()->where('question_id', $request->question)
-       ->where('user_id',$request->user)->count();
+    $topics = \App\Topic::query()->where('name', 'like', "%{$request->search}%")
+        ->get(['id', 'name as text']);
+    return ['results' => $topics];
+});
 
-   if ($follow){
-       return response()->json(['followed'=>true]);
-   }
-    return response()->json(['followed'=>false]);
-})->middleware('api');
-
-Route::post('/question/follow',function (Request $request){
-    $follow = \App\Follow::query()->where('question_id',$request->question)
-        ->where('user_id',$request->user)->first();
-
-    if ($follow !== null){
-        $follow->delete();
-        return response()->json(['followed'=>false]);
+Route::post('/question/follower', function (Request $request) {
+    $user = Auth::guard('api')->user();
+    $question = \App\Question::query()->findOrFail($request->question);
+    $follow = $user->followed($question->id);
+    if ($follow) {
+        return response()->json(['followed' => true,'followers_count'=>$question->followers_count]);
     }
-    \App\Follow::query()->create([
-        'question_id'=>$request->question,
-        'user_id'=>$request->user,
-    ]);
-    return response()->json(['followed'=>true]);
-})->middleware('api');
+    return response()->json(['followed' => false,'followers_count'=>$question->followers_count]);
+})->middleware('auth:api');
+
+Route::post('/question/follow', function (Request $request) {
+    $user = Auth::guard('api')->user();
+
+    $question = \App\Question::query()->find($request->question);
+
+    $follow = $user->followThis($question);
+
+    if (sizeof($follow['detached']) > 0) {
+        $question->decrement('followers_count');
+        return response()->json(['followed' => false,'followers_count'=>$question->followers_count]);
+    }
+
+    $question->increment('followers_count');
+
+    return response()->json(['followed' => true,'followers_count'=>$question->followers_count]);
+})->middleware('auth:api');
+
+Route::post('/user-isfollow','Api\UserFollowController@isFollow')->middleware('auth:api');
+Route::post('/user-follow','Api\UserFollowController@follow')->middleware('auth:api');

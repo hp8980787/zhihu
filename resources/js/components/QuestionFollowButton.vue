@@ -1,26 +1,33 @@
 <template>
-    <button
-        class="btn"
-        v-text="text"
-        v-bind:class="{'btn-success':followed}"
-        v-on:click="follow"
-    ></button>
+    <div class="card">
+    <div class="card-header" style="text-align: center">
+        <h4>{{ followers_count }}</h4>
+        <span>关注者</span>
+    </div>
+    <div class="card-body">
+        <button
+            class="btn"
+            v-text="text"
+            v-bind:class="{'btn-success':followed}"
+            v-on:click="follow"></button>
+        <a href="#">撰写答案</a>
+    </div>
+    </div>
 </template>
 
 <script>
 export default {
     name: "QuestionFollowButton",
-    props: ['question', 'user'],
+    props: ['question'],
     mounted() {
-        console.log(this.question, this.user);
         var object = this;
         axios.post('/api/question/follower', {
             question: object.question,
-            user: object.user,
+
         })
             .then(function (response) {
                 object.followed = response.data.followed;
-                console.log(response.data.followed);
+                object.followers_count = response.data.followers_count;
             })
             .catch(function (error) {
                 console.log(error);
@@ -28,6 +35,8 @@ export default {
     }, data() {
         return {
             followed: false,
+            followers_count:1,
+
         };
     }, computed: {
         text() {
@@ -38,11 +47,11 @@ export default {
             var object = this;
             axios.post('/api/question/follow', {
                 question: object.question,
-                user: object.user,
             })
                 .then(function (response) {
                     object.followed = response.data.followed;
-                    console.log(response.data.followed);
+                    object.followers_count = response.data.followers_count;
+
                 })
                 .catch(function (error) {
                     console.log(error);
