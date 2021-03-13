@@ -142,7 +142,7 @@
                         </div>
                         <div class="float-left">
                             <div>关注者</div>
-                            <strong>1</strong>
+                            <strong>{{ $question->user->followers_count }}</strong>
                         </div>
                     </div>
 
