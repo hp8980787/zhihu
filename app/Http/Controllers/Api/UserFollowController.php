@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
+use App\Notifications\NewUserFollowNotification;
 class UserFollowController extends Controller
 {
     public function __construct()
@@ -39,12 +39,11 @@ class UserFollowController extends Controller
             $userFollower->decrement('followings_count');
             $userFollowed->decrement('followers_count');
 
-
             return response(['is_followed' => false]);
         }
         $userFollowed->increment('followers_count');
         $userFollower->increment('followings_count');
-
+        $userFollowed->notify(new NewUserFollowNotification($userFollower));
         return response(['is_followed' => true]);
 
     }
