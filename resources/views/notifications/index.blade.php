@@ -11,7 +11,7 @@
 
                     <div class="card-body">
                         @foreach($user->notifications as $notification)
-                            {{ $notification->type }}
+                            @include('notifications.'.strtolower(class_basename($notification->type)))
                         @endforeach
                     </div>
                 </div>
