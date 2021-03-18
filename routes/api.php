@@ -42,9 +42,9 @@ Route::post('/question/follower', function (Request $request) {
     $question = \App\Question::query()->findOrFail($request->question);
     $follow = $user->followed($question->id);
     if ($follow) {
-        return response()->json(['followed' => true,'followers_count'=>$question->followers_count]);
+        return response()->json(['followed' => true, 'followers_count' => $question->followers_count]);
     }
-    return response()->json(['followed' => false,'followers_count'=>$question->followers_count]);
+    return response()->json(['followed' => false, 'followers_count' => $question->followers_count]);
 })->middleware('auth:api');
 
 Route::post('/question/follow', function (Request $request) {
@@ -56,13 +56,17 @@ Route::post('/question/follow', function (Request $request) {
 
     if (sizeof($follow['detached']) > 0) {
         $question->decrement('followers_count');
-        return response()->json(['followed' => false,'followers_count'=>$question->followers_count]);
+        return response()->json(['followed' => false, 'followers_count' => $question->followers_count]);
     }
 
     $question->increment('followers_count');
 
-    return response()->json(['followed' => true,'followers_count'=>$question->followers_count]);
+    return response()->json(['followed' => true, 'followers_count' => $question->followers_count]);
 })->middleware('auth:api');
+Route::middleware('auth:api')->group(function () {
+    Route::post('/user-isfollow', 'Api\UserFollowController@isFollow');
+    Route::post('/user-follow', 'Api\UserFollowController@follow');
+    Route::get('/answer-islike', 'Api\VotesController@isLike');
+    Route::post('/answer-like', 'Api\VotesController@like');
+});
 
-Route::post('/user-isfollow','Api\UserFollowController@isFollow')->middleware('auth:api');
-Route::post('/user-follow','Api\UserFollowController@follow')->middleware('auth:api');

@@ -51,7 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function followers()
     {
-        return $this->belongsToMany(self::class,'followers','followed_id','follower_id')->withTimestamps();
+        return $this->belongsToMany(self::class, 'followers', 'followed_id', 'follower_id')->withTimestamps();
     }
 
 
@@ -80,6 +80,22 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function votes()
+    {
+        return $this->belongsToMany(Answer::class, 'votes', 'answer_id', 'user_id')->withTimestamps();
+    }
+
+    public function voteFor($answer)
+    {
+        return $this->votes()->toggle($answer);
+    }
+
+    public function hasVoteFor($answer)
+    {
+        return !!$this->votes()->where('answer_id', $answer)->count();
+
     }
 
 }

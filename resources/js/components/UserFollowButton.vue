@@ -12,7 +12,6 @@ export default {
             followed_id: follow.followed_id,
         }).then(function (response) {
             follow.is_followed = response.data.is_followed;
-            console.log(response);
         }).catch(function (error) {
 
         });

@@ -55,7 +55,7 @@
                         @else
                             <li class="nav-item">
                                 <img class="bells" src="/image/bells.png" alt="bells">
-                                <span class="bells-count">{{ sizeof(Auth::user()->notifications) }}</span>
+                                <span class="bells-count">{{ sizeof(Auth::user()->unreadNotifications) }}</span>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

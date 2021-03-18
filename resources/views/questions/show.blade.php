@@ -43,9 +43,7 @@
                     </div>
 
                     <div class="col-md-12">
-                        <div class="card">
-                            {{ $question->answers_count }}个答案
-                        </div>
+
                         <div>
                             <ul class="list-unstyled">
                                 @foreach($question->answers as $answer)
@@ -62,6 +60,7 @@
                                         <div style="padding-left: 30px">
                                             <p>{!! $answer->body !!}</p>
                                         </div>
+                                        <answer-like-button :answer="{{ $answer->id }}" ></answer-like-button>
                                     </li>
                                 @endforeach
 
@@ -148,8 +147,6 @@
 
                     <user-follow-button followed_id="{{ $question->user->id }}"></user-follow-button>
                     <a href="#" class="btn btn-secondary">发私信</a>
-
-
                 </div>
 
             </div>

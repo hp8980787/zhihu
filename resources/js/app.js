@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -13,7 +12,6 @@ require("./js/select2")
 window.Vue = require('vue');
 
 
-
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -26,8 +24,10 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('question-follow-button',require('./components/QuestionFollowButton').default)
-Vue.component('user-follow-button',require('./components/UserFollowButton.vue').default)
+Vue.component('question-follow-button', require('./components/QuestionFollowButton').default)
+Vue.component('user-follow-button', require('./components/UserFollowButton.vue').default)
+// Vue.component('question-like-button', require('./components/QuestionLikeButton').default)
+Vue.component('answer-like-button', require('./components/AnswerLikeButton').default)
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

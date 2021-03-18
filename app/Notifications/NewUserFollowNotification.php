@@ -2,11 +2,14 @@
 
 namespace App\Notifications;
 
+use App\Channels\SendCloudChannle;
+use App\Mail\NewUserFollow;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class NewUserFollowNotification extends Notification
 {
@@ -30,7 +33,7 @@ class NewUserFollowNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', SendCloudChannle::class];
     }
 
     public function toDatabase($notifiable)
@@ -40,18 +43,10 @@ class NewUserFollowNotification extends Notification
         ];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param mixed $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
+    public function toSendCloud($notifiable)
     {
-        return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+
+        Mail::to($notifiable->email)->send(new NewUserFollow(Auth::user()));
     }
 
     /**
