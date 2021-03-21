@@ -44,7 +44,7 @@ class UserFollowController extends Controller
         $userFollowed->increment('followers_count');
         $userFollower->increment('followings_count');
 
-        $userFollowed->notify(new NewUserFollowNotification());
+//        $userFollowed->notify(new NewUserFollowNotification());
 
         return response(['is_followed' => true]);
 

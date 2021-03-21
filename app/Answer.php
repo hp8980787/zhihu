@@ -23,6 +23,15 @@ class Answer extends Model
         return $query->where('is_hidden', 'F');
     }
 
+    public function votes()
+    {
+        return $this->belongsToMany(User::class, 'votes', 'user_id', 'answer_id');
+    }
+
+    public function hasVote($user_id)
+    {
+        return !! $this->votes()->where('user_id',$user_id)->count();
+    }
 
 
 }

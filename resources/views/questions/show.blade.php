@@ -44,28 +44,8 @@
 
                     <div class="col-md-12">
 
-                        <div>
-                            <ul class="list-unstyled">
-                                @foreach($question->answers as $answer)
+                        <question-answer question="{{ $question->id }}"></question-answer>
 
-                                    <li style="margin: 30px 30px">
-                                        <div class="" style="width: 100%">
-                                            <a href="{{ route('questions.show',$question->id) }}">
-                                                <img src="{{ $answer->user->avatar }}" width="30px"
-                                                     class="align-self-start mr-3"
-                                                     alt="{{ $answer->user->name }}"></a>
-                                            <a href="">{{  $answer->user->name }} </a>
-                                            <span class="float-right">{{ $answer->created_at }}</span>
-                                        </div>
-                                        <div style="padding-left: 30px">
-                                            <p>{!! $answer->body !!}</p>
-                                        </div>
-                                        <answer-like-button :answer="{{ $answer->id }}" ></answer-like-button>
-                                    </li>
-                                @endforeach
-
-                            </ul>
-                        </div>
                         <div>
                             @if(Auth::check())
                                 <form action="{{ route('answers.store',$question->id) }}" method="POST">
