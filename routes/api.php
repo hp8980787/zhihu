@@ -68,6 +68,5 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/user-follow', 'Api\UserFollowController@follow');
     Route::get('/answer-islike', 'Api\VotesController@isLike');
     Route::post('/answer-like', 'Api\VotesController@like');
-    Route::resource('/answers','Api\AnswersController');
 });
-
+Route::resource('/answers', 'Api\AnswersController');

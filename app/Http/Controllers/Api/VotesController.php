@@ -10,20 +10,16 @@ use Illuminate\Support\Facades\Auth;
 
 class VotesController extends Controller
 {
-    public function isLike(Request $request)
-    {
-        $is_like = Auth::guard('api')->user()->hasVoteFor($request->answer_id);
 
-        return response([
-            'is_like' => $is_like,
-        ]);
-    }
 
     public function like(Request $request)
     {
         $user = Auth::guard('api')->user();
+
         $answer = Answer::query()->where('id', $request->answer_id)->firstOrFail();
+
         $vote = $user->votes()->toggle($answer->id);
+
         if (sizeof($vote['attached']) > 0) {
             $answer->increment('votes_count');
             return response(['is_like' => true, 'like_counts' => $answer->vote_count]);

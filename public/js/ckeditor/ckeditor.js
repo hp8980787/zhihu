@@ -228,7 +228,7 @@ var _trim = _interopRequireDefault(__webpack_require__(20));
 
 var _map2 = _interopRequireDefault(__webpack_require__(118));
 
-var _indexOf = _interopRequireDefault(__webpack_require__(27));
+var _indexOf = _interopRequireDefault(__webpack_require__(30));
 
 var _splice = _interopRequireDefault(__webpack_require__(94));
 
@@ -2322,7 +2322,7 @@ function (_super) {
     var dropList = new DropList_1["default"](_this, conf);
     _this.dropList = dropList; // 绑定事件
 
-    $elem.on('click', function () {
+    $elem.on('mouseenter', function () {
       var _context2;
 
       if (editor.selection.getRange() == null) {
@@ -2335,7 +2335,9 @@ function (_super) {
         return fn();
       }); // 显示
 
-      dropList.show();
+      dropList.showTimeoutId = (0, _setTimeout2["default"])(function () {
+        dropList.show();
+      }, 200);
     }).on('mouseleave', function () {
       $elem.css('z-index', 'auto'); // 隐藏
 
@@ -2374,12 +2376,6 @@ module.exports = __webpack_require__(194);
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(207);
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
 // toObject with fallback for non-array-like ES3 strings
 var IndexedObject = __webpack_require__(76);
 var requireObjectCoercible = __webpack_require__(47);
@@ -2390,7 +2386,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var path = __webpack_require__(10);
@@ -2407,7 +2403,7 @@ module.exports = function (namespace, method) {
 
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var bind = __webpack_require__(48);
@@ -2483,6 +2479,12 @@ module.exports = {
   filterOut: createMethod(7)
 };
 
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(207);
 
 /***/ }),
 /* 31 */
@@ -3830,7 +3832,7 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
 });
 exports.ListHandle = void 0;
 
-var SelectionRangeElem_1 = __importDefault(__webpack_require__(380));
+var SelectionRangeElem_1 = __importDefault(__webpack_require__(379));
 
 var ListHandle =
 /** @class */
@@ -3979,7 +3981,7 @@ module.exports = version && +version;
 /* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getBuiltIn = __webpack_require__(29);
+var getBuiltIn = __webpack_require__(28);
 
 module.exports = getBuiltIn('navigator', 'userAgent') || '';
 
@@ -4129,7 +4131,7 @@ module.exports = __webpack_require__(219);
 var DESCRIPTORS = __webpack_require__(15);
 var propertyIsEnumerableModule = __webpack_require__(58);
 var createPropertyDescriptor = __webpack_require__(36);
-var toIndexedObject = __webpack_require__(28);
+var toIndexedObject = __webpack_require__(27);
 var toPrimitive = __webpack_require__(59);
 var has = __webpack_require__(17);
 var IE8_DOM_DEFINE = __webpack_require__(102);
@@ -4187,7 +4189,7 @@ module.exports = function (it) {
 /* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toIndexedObject = __webpack_require__(28);
+var toIndexedObject = __webpack_require__(27);
 var toLength = __webpack_require__(37);
 var toAbsoluteIndex = __webpack_require__(79);
 
@@ -4742,7 +4744,7 @@ var _bind = _interopRequireDefault(__webpack_require__(55));
 
 var _forEach = _interopRequireDefault(__webpack_require__(3));
 
-var _indexOf = _interopRequireDefault(__webpack_require__(27));
+var _indexOf = _interopRequireDefault(__webpack_require__(30));
 
 var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
@@ -4875,14 +4877,9 @@ function () {
 
       if (!name || !size) {
         return;
-      } // 将uploadImgAccept数组转换为正则对象
+      }
 
-
-      var imgType = editor.config.uploadImgAccept.join('|');
-      var imgTypeRuleStr = ".(" + imgType + ")$";
-      var uploadImgAcceptRule = new RegExp(imgTypeRuleStr, 'i');
-
-      if (uploadImgAcceptRule.test(name) === false) {
+      if (/\.(jpg|jpeg|png|bmp|gif|webp)$/i.test(name) === false) {
         // 后缀名不合法，不是图片
         errInfos.push("\u3010" + name + "\u3011" + t('不是图片'));
         return;
@@ -5065,7 +5062,7 @@ var _interopRequireDefault = __webpack_require__(0);
 
 var _defineProperty = _interopRequireDefault(__webpack_require__(1));
 
-var _every = _interopRequireDefault(__webpack_require__(413));
+var _every = _interopRequireDefault(__webpack_require__(412));
 
 var _forEach = _interopRequireDefault(__webpack_require__(3));
 
@@ -5222,7 +5219,7 @@ var _defineProperty = _interopRequireDefault(__webpack_require__(1));
   value: true
 });
 
-var stack_1 = __webpack_require__(433);
+var stack_1 = __webpack_require__(432);
 
 var Cache =
 /** @class */
@@ -5360,7 +5357,7 @@ module.exports = isForced;
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(17);
-var toIndexedObject = __webpack_require__(28);
+var toIndexedObject = __webpack_require__(27);
 var indexOf = __webpack_require__(78).indexOf;
 var hiddenKeys = __webpack_require__(50);
 
@@ -5382,7 +5379,7 @@ module.exports = function (object, names) {
 /* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var getBuiltIn = __webpack_require__(29);
+var getBuiltIn = __webpack_require__(28);
 
 module.exports = getBuiltIn('document', 'documentElement');
 
@@ -5434,7 +5431,7 @@ module.exports = function (target, src, options) {
 
 "use strict";
 
-var getBuiltIn = __webpack_require__(29);
+var getBuiltIn = __webpack_require__(28);
 var definePropertyModule = __webpack_require__(19);
 var wellKnownSymbol = __webpack_require__(11);
 var DESCRIPTORS = __webpack_require__(15);
@@ -5759,25 +5756,25 @@ var index_1 = __importDefault(__webpack_require__(289));
 
 var index_2 = __importDefault(__webpack_require__(308));
 
-var init_dom_1 = __importDefault(__webpack_require__(419));
+var init_dom_1 = __importDefault(__webpack_require__(418));
 
-var init_selection_1 = __importDefault(__webpack_require__(420));
+var init_selection_1 = __importDefault(__webpack_require__(419));
 
-var bind_event_1 = __importDefault(__webpack_require__(421));
+var bind_event_1 = __importDefault(__webpack_require__(420));
 
-var i18next_init_1 = __importDefault(__webpack_require__(422));
+var i18next_init_1 = __importDefault(__webpack_require__(421));
 
-var set_full_screen_1 = __importStar(__webpack_require__(423));
+var set_full_screen_1 = __importStar(__webpack_require__(422));
 
-var scroll_to_head_1 = __importDefault(__webpack_require__(426));
+var scroll_to_head_1 = __importDefault(__webpack_require__(425));
 
-var z_index_1 = __importDefault(__webpack_require__(427));
+var z_index_1 = __importDefault(__webpack_require__(426));
 
-var index_3 = __importDefault(__webpack_require__(428));
+var index_3 = __importDefault(__webpack_require__(427));
 
-var index_4 = __importDefault(__webpack_require__(430));
+var index_4 = __importDefault(__webpack_require__(429));
 
-var disable_1 = __importDefault(__webpack_require__(440));
+var disable_1 = __importDefault(__webpack_require__(439));
 
 var BtnMenu_1 = __importDefault(__webpack_require__(23));
 
@@ -5982,7 +5979,7 @@ var anInstance = __webpack_require__(87);
 var isObject = __webpack_require__(14);
 var setToStringTag = __webpack_require__(42);
 var defineProperty = __webpack_require__(19).f;
-var forEach = __webpack_require__(30).forEach;
+var forEach = __webpack_require__(29).forEach;
 var DESCRIPTORS = __webpack_require__(15);
 var InternalStateModule = __webpack_require__(43);
 
@@ -6584,6 +6581,7 @@ function () {
     var _this = this;
 
     this.hideTimeoutId = 0;
+    this.showTimeoutId = 0;
     this.menu = menu;
     this.conf = conf; // 容器
 
@@ -6607,10 +6605,8 @@ function () {
       if ($elem) {
         $li.append($elem);
         $list.append($li);
-        $li.on('click', function (e) {
-          clickHandler(value); // 阻止冒泡
-
-          e.stopPropagation(); // item 点击之后，隐藏 list
+        $li.on('click', function () {
+          clickHandler(value); // item 点击之后，隐藏 list
 
           _this.hideTimeoutId = (0, _setTimeout2["default"])(function () {
             _this.hide();
@@ -6672,6 +6668,11 @@ function () {
 
 
   DropList.prototype.hide = function () {
+    if (this.showTimeoutId) {
+      // 清除之前的定时显示
+      clearTimeout(this.showTimeoutId);
+    }
+
     var $container = this.$container;
 
     if (!this._show) {
@@ -6858,7 +6859,7 @@ var _interopRequireDefault = __webpack_require__(0);
 
 var _defineProperty = _interopRequireDefault(__webpack_require__(1));
 
-var _now = _interopRequireDefault(__webpack_require__(352));
+var _now = _interopRequireDefault(__webpack_require__(351));
 
 var _setTimeout2 = _interopRequireDefault(__webpack_require__(56));
 
@@ -7039,7 +7040,7 @@ var DropListMenu_1 = __importDefault(__webpack_require__(24));
 
 var utils_1 = __webpack_require__(45);
 
-var ListHandle_1 = __importStar(__webpack_require__(378));
+var ListHandle_1 = __importStar(__webpack_require__(377));
 /**
  * 列表的种类
  */
@@ -7376,7 +7377,7 @@ __webpack_require__(163);
 
 var index_1 = __importDefault(__webpack_require__(117));
 
-__exportStar(__webpack_require__(443), exports); // 检验是否浏览器环境
+__exportStar(__webpack_require__(442), exports); // 检验是否浏览器环境
 
 
 try {
@@ -7686,7 +7687,7 @@ module.exports = content.locals || {};
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(22);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".w-e-toolbar {\n  display: flex;\n  padding: 0 6px;\n  flex-wrap: wrap;\n  position: relative;\n  /* 单个菜单 */\n}\n.w-e-toolbar .w-e-menu {\n  position: relative;\n  display: flex;\n  width: 40px;\n  height: 40px;\n  align-items: center;\n  justify-content: center;\n  text-align: center;\n  cursor: pointer;\n}\n.w-e-toolbar .w-e-menu i {\n  color: #999;\n}\n.w-e-toolbar .w-e-menu:hover {\n  background-color: #F6F6F6;\n}\n.w-e-toolbar .w-e-menu:hover i {\n  color: #333;\n}\n.w-e-toolbar .w-e-active i {\n  color: #1e88e5;\n}\n.w-e-toolbar .w-e-active:hover i {\n  color: #1e88e5;\n}\n.w-e-menu-tooltip {\n  position: absolute;\n  display: flex;\n  color: #f1f1f1;\n  background-color: rgba(0, 0, 0, 0.75);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);\n  border-radius: 4px;\n  padding: 4px 5px 6px;\n  justify-content: center;\n  align-items: center;\n}\n.w-e-menu-tooltip-up::after {\n  content: \"\";\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  margin-left: -5px;\n  border: 5px solid rgba(0, 0, 0, 0);\n  border-top-color: rgba(0, 0, 0, 0.73);\n}\n.w-e-menu-tooltip-down::after {\n  content: \"\";\n  position: absolute;\n  bottom: 100%;\n  left: 50%;\n  margin-left: -5px;\n  border: 5px solid rgba(0, 0, 0, 0);\n  border-bottom-color: rgba(0, 0, 0, 0.73);\n}\n.w-e-menu-tooltip-item-wrapper {\n  font-size: 14px;\n  margin: 0 5px;\n}\n", ""]);
+exports.push([module.i, ".w-e-toolbar {\n  display: flex;\n  padding: 0 6px;\n  flex-wrap: wrap;\n  position: relative;\n  /* 单个菜单 */\n}\n.w-e-toolbar .w-e-menu {\n  position: relative;\n  display: flex;\n  width: 40px;\n  height: 40px;\n  align-items: center;\n  justify-content: center;\n  text-align: center;\n  cursor: pointer;\n}\n.w-e-toolbar .w-e-menu i {\n  color: #999;\n}\n.w-e-toolbar .w-e-menu:hover {\n  background-color: #F6F6F6;\n}\n.w-e-toolbar .w-e-menu:hover i {\n  color: #333;\n}\n.w-e-toolbar .w-e-active i {\n  color: #1e88e5;\n}\n.w-e-toolbar .w-e-active:hover i {\n  color: #1e88e5;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -7723,7 +7724,7 @@ module.exports = content.locals || {};
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(22);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".w-e-text-container {\n  position: relative;\n  height: 100%;\n}\n.w-e-text-container .w-e-progress {\n  position: absolute;\n  background-color: #1e88e5;\n  top: 0;\n  left: 0;\n  height: 1px;\n}\n.w-e-text-container .placeholder {\n  color: #D4D4D4;\n  position: absolute;\n  font-size: 11pt;\n  line-height: 22px;\n  left: 10px;\n  top: 10px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  z-index: -1;\n}\n.w-e-text {\n  padding: 0 10px;\n  overflow-y: auto;\n}\n.w-e-text p,\n.w-e-text h1,\n.w-e-text h2,\n.w-e-text h3,\n.w-e-text h4,\n.w-e-text h5,\n.w-e-text table,\n.w-e-text pre {\n  margin: 10px 0;\n  line-height: 1.5;\n}\n.w-e-text ul,\n.w-e-text ol {\n  margin: 10px 0 10px 20px;\n}\n.w-e-text blockquote {\n  display: block;\n  border-left: 8px solid #d0e5f2;\n  padding: 5px 10px;\n  margin: 10px 0;\n  line-height: 1.4;\n  font-size: 100%;\n  background-color: #f1f1f1;\n}\n.w-e-text code {\n  display: inline-block;\n  background-color: #f1f1f1;\n  border-radius: 3px;\n  padding: 3px 5px;\n  margin: 0 3px;\n}\n.w-e-text pre code {\n  display: block;\n}\n.w-e-text table {\n  border-top: 1px solid #ccc;\n  border-left: 1px solid #ccc;\n}\n.w-e-text table td,\n.w-e-text table th {\n  border-bottom: 1px solid #ccc;\n  border-right: 1px solid #ccc;\n  padding: 3px 5px;\n  min-height: 30px;\n}\n.w-e-text table th {\n  border-bottom: 2px solid #ccc;\n  text-align: center;\n  background-color: #f1f1f1;\n}\n.w-e-text:focus {\n  outline: none;\n}\n.w-e-text img {\n  cursor: pointer;\n}\n.w-e-text img:hover {\n  box-shadow: 0 0 5px #333;\n}\n.w-e-text .w-e-todo {\n  margin: 0 0 0 20px;\n}\n.w-e-text .w-e-todo li {\n  list-style: none;\n  font-size: 1em;\n}\n.w-e-text .w-e-todo li span:nth-child(1) {\n  position: relative;\n  left: -18px;\n}\n.w-e-text .w-e-todo li span:nth-child(1) input {\n  position: absolute;\n  margin-right: 3px;\n}\n.w-e-text .w-e-todo li span:nth-child(1) input[type=checkbox] {\n  top: 50%;\n  margin-top: -6px;\n}\n.w-e-tooltip {\n  position: absolute;\n  display: flex;\n  color: #f1f1f1;\n  background-color: rgba(0, 0, 0, 0.75);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);\n  border-radius: 4px;\n  padding: 4px 5px 6px;\n  justify-content: center;\n  align-items: center;\n}\n.w-e-tooltip-up::after {\n  content: \"\";\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  margin-left: -5px;\n  border: 5px solid rgba(0, 0, 0, 0);\n  border-top-color: rgba(0, 0, 0, 0.73);\n}\n.w-e-tooltip-down::after {\n  content: \"\";\n  position: absolute;\n  bottom: 100%;\n  left: 50%;\n  margin-left: -5px;\n  border: 5px solid rgba(0, 0, 0, 0);\n  border-bottom-color: rgba(0, 0, 0, 0.73);\n}\n.w-e-tooltip-item-wrapper {\n  cursor: pointer;\n  font-size: 14px;\n  margin: 0 5px;\n}\n.w-e-tooltip-item-wrapper:hover {\n  color: #ccc;\n  text-decoration: underline;\n}\n", ""]);
+exports.push([module.i, ".w-e-text-container {\n  position: relative;\n  height: 100%;\n}\n.w-e-text-container .w-e-progress {\n  position: absolute;\n  background-color: #1e88e5;\n  top: 0;\n  left: 0;\n  height: 1px;\n}\n.w-e-text-container .placeholder {\n  color: #D4D4D4;\n  position: absolute;\n  font-size: 11pt;\n  line-height: 22px;\n  left: 10px;\n  top: 10px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  z-index: -1;\n}\n.w-e-text {\n  padding: 0 10px;\n  overflow-y: auto;\n}\n.w-e-text p,\n.w-e-text h1,\n.w-e-text h2,\n.w-e-text h3,\n.w-e-text h4,\n.w-e-text h5,\n.w-e-text table,\n.w-e-text pre {\n  margin: 10px 0;\n  line-height: 1.5;\n}\n.w-e-text ul,\n.w-e-text ol {\n  margin: 10px 0 10px 20px;\n}\n.w-e-text blockquote {\n  display: block;\n  border-left: 8px solid #d0e5f2;\n  padding: 5px 10px;\n  margin: 10px 0;\n  line-height: 1.4;\n  font-size: 100%;\n  background-color: #f1f1f1;\n}\n.w-e-text code {\n  display: inline-block;\n  background-color: #f1f1f1;\n  border-radius: 3px;\n  padding: 3px 5px;\n  margin: 0 3px;\n}\n.w-e-text pre code {\n  display: block;\n}\n.w-e-text table {\n  border-top: 1px solid #ccc;\n  border-left: 1px solid #ccc;\n}\n.w-e-text table td,\n.w-e-text table th {\n  border-bottom: 1px solid #ccc;\n  border-right: 1px solid #ccc;\n  padding: 3px 5px;\n  min-height: 30px;\n}\n.w-e-text table th {\n  border-bottom: 2px solid #ccc;\n  text-align: center;\n  background-color: #f1f1f1;\n}\n.w-e-text:focus {\n  outline: none;\n}\n.w-e-text img {\n  cursor: pointer;\n}\n.w-e-text img:hover {\n  box-shadow: 0 0 5px #333;\n}\n.w-e-text .w-e-todo {\n  margin: 0 0 0 20px;\n}\n.w-e-text .w-e-todo li {\n  list-style: none;\n  font-size: 1em;\n}\n.w-e-text .w-e-todo li span:nth-child(1) {\n  position: relative;\n  left: -18px;\n}\n.w-e-text .w-e-todo li span:nth-child(1) input {\n  position: absolute;\n  margin-right: 3px;\n}\n.w-e-text .w-e-todo li span:nth-child(1) input[type=checkbox] {\n  top: 50%;\n  margin-top: -6px;\n}\n.w-e-tooltip {\n  position: absolute;\n  display: flex;\n  color: #f1f1f1;\n  background-color: rgba(0, 0, 0, 0.75);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);\n  border-radius: 4px;\n  padding: 4px 5px 6px;\n  justify-content: center;\n  align-items: center;\n}\n.w-e-tooltip-up::after {\n  content: \"\";\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  margin-left: -5px;\n  border: 5px solid rgba(0, 0, 0, 0);\n  border-top-color: rgba(0, 0, 0, 0.73);\n}\n.w-e-tooltip-down::after {\n  content: \"\";\n  position: absolute;\n  bottom: 100%;\n  left: 50%;\n  margin-left: -5px;\n  border: 5px solid rgba(0, 0, 0, 0);\n  border-bottom-color: rgba(0, 0, 0, 0.73);\n}\n.w-e-tooltip-item-wrapper {\n  cursor: pointer;\n  font-size: 14px;\n  margin: 0 5px;\n}\n.w-e-tooltip-item-wrapper:hover {\n  color: #ccc;\n  text-decoration: underline;\n}\n.w-e-menu-tooltip {\n  position: absolute;\n  display: flex;\n  color: #f1f1f1;\n  background-color: rgba(0, 0, 0, 0.75);\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);\n  border-radius: 4px;\n  padding: 4px 5px 6px;\n  justify-content: center;\n  align-items: center;\n}\n.w-e-menu-tooltip-up::after {\n  content: \"\";\n  position: absolute;\n  top: 100%;\n  left: 50%;\n  margin-left: -5px;\n  border: 5px solid rgba(0, 0, 0, 0);\n  border-top-color: rgba(0, 0, 0, 0.73);\n}\n.w-e-menu-tooltip-item-wrapper {\n  font-size: 14px;\n  margin: 0 5px;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -7984,7 +7985,7 @@ module.exports = function (iterator) {
 var $ = __webpack_require__(6);
 var IS_PURE = __webpack_require__(38);
 var global = __webpack_require__(9);
-var getBuiltIn = __webpack_require__(29);
+var getBuiltIn = __webpack_require__(28);
 var NativePromise = __webpack_require__(108);
 var redefine = __webpack_require__(51);
 var redefineAll = __webpack_require__(109);
@@ -8602,7 +8603,7 @@ $({ target: 'Promise', stat: true }, {
 
 var $ = __webpack_require__(6);
 var aFunction = __webpack_require__(33);
-var getBuiltIn = __webpack_require__(29);
+var getBuiltIn = __webpack_require__(28);
 var newPromiseCapabilityModule = __webpack_require__(69);
 var perform = __webpack_require__(88);
 var iterate = __webpack_require__(40);
@@ -8657,7 +8658,7 @@ var $ = __webpack_require__(6);
 var IS_PURE = __webpack_require__(38);
 var NativePromise = __webpack_require__(108);
 var fails = __webpack_require__(13);
-var getBuiltIn = __webpack_require__(29);
+var getBuiltIn = __webpack_require__(28);
 var speciesConstructor = __webpack_require__(112);
 var promiseResolve = __webpack_require__(115);
 var redefine = __webpack_require__(51);
@@ -8752,7 +8753,7 @@ module.exports = function (IteratorConstructor, NAME, next) {
 
 "use strict";
 
-var toIndexedObject = __webpack_require__(28);
+var toIndexedObject = __webpack_require__(27);
 var addToUnscopables = __webpack_require__(90);
 var Iterators = __webpack_require__(41);
 var InternalStateModule = __webpack_require__(43);
@@ -8910,7 +8911,7 @@ $({ target: 'Array', proto: true, forced: [].forEach != forEach }, {
 
 "use strict";
 
-var $forEach = __webpack_require__(30).forEach;
+var $forEach = __webpack_require__(29).forEach;
 var arrayMethodIsStrict = __webpack_require__(71);
 
 var STRICT_METHOD = arrayMethodIsStrict('forEach');
@@ -8995,7 +8996,7 @@ module.exports = entryVirtual('Array').map;
 "use strict";
 
 var $ = __webpack_require__(6);
-var $map = __webpack_require__(30).map;
+var $map = __webpack_require__(29).map;
 var arrayMethodHasSpeciesSupport = __webpack_require__(54);
 
 var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('map');
@@ -9338,7 +9339,7 @@ module.exports = entryVirtual('Array').filter;
 "use strict";
 
 var $ = __webpack_require__(6);
-var $filter = __webpack_require__(30).filter;
+var $filter = __webpack_require__(29).filter;
 var arrayMethodHasSpeciesSupport = __webpack_require__(54);
 
 var HAS_SPECIES_SUPPORT = arrayMethodHasSpeciesSupport('filter');
@@ -9674,7 +9675,7 @@ $({ target: 'Array', proto: true, forced: FORCED }, {
 
 var $ = __webpack_require__(6);
 var global = __webpack_require__(9);
-var getBuiltIn = __webpack_require__(29);
+var getBuiltIn = __webpack_require__(28);
 var IS_PURE = __webpack_require__(38);
 var DESCRIPTORS = __webpack_require__(15);
 var NATIVE_SYMBOL = __webpack_require__(85);
@@ -9685,7 +9686,7 @@ var isArray = __webpack_require__(53);
 var isObject = __webpack_require__(14);
 var anObject = __webpack_require__(25);
 var toObject = __webpack_require__(39);
-var toIndexedObject = __webpack_require__(28);
+var toIndexedObject = __webpack_require__(27);
 var toPrimitive = __webpack_require__(59);
 var createPropertyDescriptor = __webpack_require__(36);
 var nativeObjectCreate = __webpack_require__(49);
@@ -9707,7 +9708,7 @@ var wrappedWellKnownSymbolModule = __webpack_require__(97);
 var defineWellKnownSymbol = __webpack_require__(12);
 var setToStringTag = __webpack_require__(42);
 var InternalStateModule = __webpack_require__(43);
-var $forEach = __webpack_require__(30).forEach;
+var $forEach = __webpack_require__(29).forEach;
 
 var HIDDEN = sharedKey('hidden');
 var SYMBOL = 'Symbol';
@@ -9988,7 +9989,7 @@ hiddenKeys[HIDDEN] = true;
 /* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toIndexedObject = __webpack_require__(28);
+var toIndexedObject = __webpack_require__(27);
 var nativeGetOwnPropertyNames = __webpack_require__(123).f;
 
 var toString = {}.toString;
@@ -10349,7 +10350,7 @@ var isObject = __webpack_require__(14);
 var isArray = __webpack_require__(53);
 var toAbsoluteIndex = __webpack_require__(79);
 var toLength = __webpack_require__(37);
-var toIndexedObject = __webpack_require__(28);
+var toIndexedObject = __webpack_require__(27);
 var createProperty = __webpack_require__(95);
 var wellKnownSymbol = __webpack_require__(11);
 var arrayMethodHasSpeciesSupport = __webpack_require__(54);
@@ -10608,6 +10609,8 @@ var _defineProperty = _interopRequireDefault(__webpack_require__(1));
 (0, _defineProperty["default"])(exports, "__esModule", {
   value: true
 });
+var SINA_PATH1 = 'http://img.t.sinajs.cn/t4/appstyle/expression/ext/normal';
+var SINA_PATH2 = 'http://img.t.sinajs.cn/t35/style/images/common/face/ext/normal';
 /*表情菜单数据结构类型END*/
 
 exports["default"] = {
@@ -10666,25 +10669,55 @@ exports["default"] = {
    */
   emotions: [{
     // tab 的标题
-    title: '表情',
+    title: '默认',
+    // type -> 'emoji' / 'image'
+    type: 'image',
+    // content -> 数组
+    content: [{
+      alt: '[坏笑]',
+      src: SINA_PATH1 + "/50/pcmoren_huaixiao_org.png"
+    }, {
+      alt: '[舔屏]',
+      src: SINA_PATH1 + "/40/pcmoren_tian_org.png"
+    }, {
+      alt: '[污]',
+      src: SINA_PATH1 + "/3c/pcmoren_wu_org.png"
+    }]
+  }, {
+    // tab 的标题
+    title: '新浪',
+    // type -> 'emoji' / 'image'
+    type: 'image',
+    // content -> 数组
+    content: [{
+      src: SINA_PATH2 + "/7a/shenshou_thumb.gif",
+      alt: '[草泥马]'
+    }, {
+      src: SINA_PATH2 + "/60/horse2_thumb.gif",
+      alt: '[神马]'
+    }, {
+      src: SINA_PATH2 + "/bc/fuyun_thumb.gif",
+      alt: '[浮云]'
+    }]
+  }, {
+    // tab 的标题
+    title: 'emoji',
     // type -> 'emoji' / 'image'
     type: 'emoji',
     // content -> 数组
-    content: '😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇 🙂 🙃 😉 😌 😍 😘 😗 😙 😚 😋 😛 😝 😜 🤓 😎 😏 😒 😞 😔 😟 😕 🙁 😣 😖 😫 😩 😢 😭 😤 😠 😡 😳 😱 😨 🤗 🤔 😶 😑 😬 🙄 😯 😴 😷 🤑 😈 🤡 💩 👻 💀 👀 👣'.split(/\s/)
+    content: '😀 😃 😄 😁 😆 😅 😂 😊 😇 🙂 🙃 😉 😓 😪 😴 🙄 🤔 😬 🤐'.split(/\s/)
   }, {
     // tab 的标题
     title: '手势',
     // type -> 'emoji' / 'image'
     type: 'emoji',
     // content -> 数组
-    content: '👐 🙌 👏 🤝 👍 👎 👊 ✊ 🤛 🤜 🤞 ✌️ 🤘 👌 👈 👉 👆 👇 ☝️ ✋ 🤚 🖐 🖖 👋 🤙 💪 🖕 ✍️ 🙏'.split(/\s/)
+    content: ['🙌', '👏', '👋', '👍', '👎', '👊', '✊', '️👌', '✋', '👐', '💪', '🙏', '️👆', '👇', '👈', '👉', '🖕', '🖐', '🤘']
   }],
   lineHeights: ['1', '1.15', '1.6', '2', '2.5', '3'],
   undoLimit: 20,
   indentation: '2em',
-  showMenuTooltips: true,
-  // 菜单栏tooltip为上标还是下标
-  menuTooltipPosition: 'up'
+  showMenuTooltips: true
 };
 
 /***/ }),
@@ -11100,7 +11133,9 @@ exports["default"] = {
           },
           panelMenus: {
             emoticon: {
-              表情: 'emoji',
+              默认: 'default',
+              新浪: 'sina',
+              emoji: 'emoji',
               手势: 'gesture'
             },
             image: {
@@ -11679,18 +11714,6 @@ function () {
 
     return $list;
   };
-  /**
-   * 将当前 range 设置到 container 元素并初始化位置
-   * 解决编辑器内容为空时，菜单不生效的问题
-   * @param node 元素节点
-   */
-
-
-  SelectionAndRange.prototype.setRangeToContainerElem = function (node) {
-    var range = this.getRange();
-    range === null || range === void 0 ? void 0 : range.setStart(node, 0);
-    range === null || range === void 0 ? void 0 : range.setEnd(node, 0);
-  };
 
   return SelectionAndRange;
 }();
@@ -11887,7 +11910,7 @@ var _forEach = _interopRequireDefault(__webpack_require__(3));
 
 var _trim = _interopRequireDefault(__webpack_require__(20));
 
-var _indexOf = _interopRequireDefault(__webpack_require__(27));
+var _indexOf = _interopRequireDefault(__webpack_require__(30));
 
 var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
@@ -12114,8 +12137,7 @@ function () {
 
   Text.prototype._saveRange = function () {
     var editor = this.editor;
-    var $textElem = editor.$textElem;
-    var $document = dom_core_1["default"](document); // 保存当前的选区
+    var $textElem = editor.$textElem; // 保存当前的选区
 
     function saveRange() {
       // 随时保存选区
@@ -12133,23 +12155,25 @@ function () {
     }
 
     $textElem.on('click', onceClickSaveRange);
-
-    function handleMouseUp() {
-      // 在编辑器区域之内完成点击，取消鼠标滑动到编辑区外面的事件
-      $textElem.off('mouseleave', saveRange);
-      $document.off('mouseup', handleMouseUp);
-    }
-
     $textElem.on('mousedown', function () {
       // mousedown 状态下，鼠标滑动到编辑区域外面，也需要保存选区
       $textElem.on('mouseleave', saveRange);
-      $document.on('mouseup', handleMouseUp);
     });
     $textElem.on('mouseup', function (e) {
       var selection = editor.selection;
       var range = selection.getRange();
-      if (range === null) return;
-      saveRange();
+      if (range == null) return;
+      var startOffset = range.startOffset,
+          endOffset = range.endOffset;
+      var endContainer = range === null || range === void 0 ? void 0 : range.endContainer; // 修复当selection结束时，点击编辑器内部，保存选区异常的情况
+
+      if (startOffset !== endOffset && endContainer != null && e.button === 0) {
+        range === null || range === void 0 ? void 0 : range.setStart(endContainer, endOffset);
+      }
+
+      saveRange(); // 在编辑器区域之内完成点击，取消鼠标滑动到编辑区外面的事件
+
+      $textElem.off('mouseleave', saveRange);
     });
   };
   /**
@@ -12482,7 +12506,7 @@ module.exports = entryVirtual('Array').find;
 "use strict";
 
 var $ = __webpack_require__(6);
-var $find = __webpack_require__(30).find;
+var $find = __webpack_require__(29).find;
 var addToUnscopables = __webpack_require__(90);
 
 var FIND = 'find';
@@ -12575,8 +12599,6 @@ var _interopRequireDefault = __webpack_require__(0);
 
 var _defineProperty = _interopRequireDefault(__webpack_require__(1));
 
-var _indexOf = _interopRequireDefault(__webpack_require__(27));
-
 var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -12598,17 +12620,8 @@ var dom_core_1 = __importDefault(__webpack_require__(2));
 
 function enterToCreateP(editor, enterUpEvents, enterDownEvents) {
   function insertEmptyP($selectionElem) {
-    var _context;
-
     var $p = dom_core_1["default"]('<p><br></p>');
     $p.insertBefore($selectionElem);
-
-    if ((0, _indexOf["default"])(_context = $selectionElem.html()).call(_context, '<img') >= 0) {
-      // 有图片的回车键弹起时
-      $p.remove();
-      return;
-    }
-
     editor.selection.createRangeByElem($p, true, true);
     editor.selection.restoreSelection();
     $selectionElem.remove();
@@ -13247,8 +13260,7 @@ var _map = _interopRequireDefault(__webpack_require__(118));
 });
 exports.TOP_LEVEL_TAGS = exports.EMPTY_TAGS = exports.NECESSARY_ATTRS = exports.IGNORE_TAGS = void 0; // 忽略的标签
 
-exports.IGNORE_TAGS = new _set["default"](['doctype', '!doctype', 'html', 'head', 'meta', 'body', 'script', 'style', 'link', 'frame', 'iframe', 'title', 'svg', 'center', 'o:p' // 复制 word 内容包含 o:p 标签
-]); // 指定标签必要的属性
+exports.IGNORE_TAGS = new _set["default"](['doctype', '!doctype', 'html', 'head', 'meta', 'body', 'script', 'style', 'link', 'frame', 'iframe', 'title', 'svg', 'center']); // 指定标签必要的属性
 
 exports.NECESSARY_ATTRS = new _map["default"]([['img', ['src', 'alt']], ['a', ['href', 'target']], ['td', ['colspan', 'rowspan']], ['th', ['colspan', 'rowspan']]]); // 没有子节点或文本的标签
 
@@ -13788,10 +13800,7 @@ function () {
   Menus.prototype._bindMenuTooltips = function () {
     var editor = this.editor;
     var $toolbarElem = editor.$toolbarElem;
-    var config = editor.config; // 若isTooltipShowTop为true则伪元素为下三角，反之为上三角
-
-    var menuTooltipPosition = config.menuTooltipPosition;
-    var $tooltipEl = dom_core_1["default"]("<div class=\"w-e-menu-tooltip w-e-menu-tooltip-" + menuTooltipPosition + "\">\n            <div class=\"w-e-menu-tooltip-item-wrapper\">\n              <div></div>\n            </div>\n          </div>");
+    var $tooltipEl = dom_core_1["default"]("<div class=\"w-e-menu-tooltip w-e-menu-tooltip-up\">\n            <div class=\"w-e-menu-tooltip-item-wrapper\">\n              <div></div>\n            </div>\n          </div>");
     $tooltipEl.css('visibility', 'hidden');
     $toolbarElem.append($tooltipEl); // 设置 z-index
 
@@ -13846,14 +13855,8 @@ function () {
         $tooltipEl.text(editor.i18next.t('menus.title.' + title));
         var tooltipOffset = $tooltipEl.getOffsetData();
         var left = targetOffset.left + targetOffset.width / 2 - tooltipOffset.width / 2;
-        $tooltipEl.css('left', left + "px"); // 2. 高度设置
-
-        if (menuTooltipPosition === 'up') {
-          $tooltipEl.css('top', targetOffset.top - tooltipOffset.height - 8 + "px");
-        } else if (menuTooltipPosition === 'down') {
-          $tooltipEl.css('top', targetOffset.top + targetOffset.height + 8 + "px");
-        }
-
+        $tooltipEl.css('left', left + "px");
+        $tooltipEl.css('top', targetOffset.height * -1 + "px");
         showTimeoutId = (0, _setTimeout2["default"])(function () {
           $tooltipEl.css('visibility', 'visible');
         }, 200);
@@ -13957,7 +13960,7 @@ $({ target: 'Object', stat: true }, {
 
 var DESCRIPTORS = __webpack_require__(15);
 var objectKeys = __webpack_require__(60);
-var toIndexedObject = __webpack_require__(28);
+var toIndexedObject = __webpack_require__(27);
 var propertyIsEnumerable = __webpack_require__(58).f;
 
 // `Object.{ entries, values }` methods implementation
@@ -14029,7 +14032,7 @@ module.exports = entryVirtual('Array').some;
 "use strict";
 
 var $ = __webpack_require__(6);
-var $some = __webpack_require__(30).some;
+var $some = __webpack_require__(29).some;
 var arrayMethodIsStrict = __webpack_require__(71);
 
 var STRICT_METHOD = arrayMethodIsStrict('some');
@@ -14074,47 +14077,47 @@ var index_2 = __importDefault(__webpack_require__(326));
 
 var index_3 = __importDefault(__webpack_require__(331));
 
-var index_4 = __importDefault(__webpack_require__(336));
+var index_4 = __importDefault(__webpack_require__(335));
 
-var index_5 = __importDefault(__webpack_require__(337));
+var index_5 = __importDefault(__webpack_require__(336));
 
-var index_6 = __importDefault(__webpack_require__(338));
+var index_6 = __importDefault(__webpack_require__(337));
 
-var index_7 = __importDefault(__webpack_require__(339));
+var index_7 = __importDefault(__webpack_require__(338));
 
-var font_size_1 = __importDefault(__webpack_require__(341));
+var font_size_1 = __importDefault(__webpack_require__(340));
 
-var index_8 = __importDefault(__webpack_require__(343));
+var index_8 = __importDefault(__webpack_require__(342));
 
-var index_9 = __importDefault(__webpack_require__(344));
+var index_9 = __importDefault(__webpack_require__(343));
 
-var index_10 = __importDefault(__webpack_require__(347));
+var index_10 = __importDefault(__webpack_require__(346));
 
-var index_11 = __importDefault(__webpack_require__(348));
+var index_11 = __importDefault(__webpack_require__(347));
 
-var index_12 = __importDefault(__webpack_require__(349));
+var index_12 = __importDefault(__webpack_require__(348));
 
-var index_13 = __importDefault(__webpack_require__(358));
+var index_13 = __importDefault(__webpack_require__(357));
 
-var index_14 = __importDefault(__webpack_require__(372));
+var index_14 = __importDefault(__webpack_require__(371));
 
-var index_15 = __importDefault(__webpack_require__(376));
+var index_15 = __importDefault(__webpack_require__(375));
 
 var index_16 = __importDefault(__webpack_require__(136));
 
-var index_17 = __importDefault(__webpack_require__(385));
+var index_17 = __importDefault(__webpack_require__(384));
 
-var index_18 = __importDefault(__webpack_require__(387));
+var index_18 = __importDefault(__webpack_require__(386));
 
-var index_19 = __importDefault(__webpack_require__(388));
+var index_19 = __importDefault(__webpack_require__(387));
 
-var index_20 = __importDefault(__webpack_require__(389));
+var index_20 = __importDefault(__webpack_require__(388));
 
-var code_1 = __importDefault(__webpack_require__(404));
+var code_1 = __importDefault(__webpack_require__(403));
 
-var index_21 = __importDefault(__webpack_require__(409));
+var index_21 = __importDefault(__webpack_require__(408));
 
-var todo_1 = __importDefault(__webpack_require__(412));
+var todo_1 = __importDefault(__webpack_require__(411));
 
 exports["default"] = {
   bold: index_1["default"],
@@ -14341,7 +14344,7 @@ var _create = _interopRequireDefault(__webpack_require__(4));
 
 var _defineProperty = _interopRequireDefault(__webpack_require__(1));
 
-var _indexOf = _interopRequireDefault(__webpack_require__(27));
+var _indexOf = _interopRequireDefault(__webpack_require__(30));
 
 var _find = _interopRequireDefault(__webpack_require__(31));
 
@@ -14687,7 +14690,7 @@ module.exports = function stringify(it, replacer, space) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var $ = __webpack_require__(6);
-var getBuiltIn = __webpack_require__(29);
+var getBuiltIn = __webpack_require__(28);
 var fails = __webpack_require__(13);
 
 var $stringify = getBuiltIn('JSON', 'stringify');
@@ -14789,7 +14792,7 @@ var is_active_1 = __importDefault(__webpack_require__(133));
 
 var Panel_1 = __importDefault(__webpack_require__(32));
 
-var index_1 = __importDefault(__webpack_require__(334));
+var index_1 = __importDefault(__webpack_require__(333));
 
 var Link =
 /** @class */
@@ -14900,8 +14903,6 @@ var dom_core_1 = __importDefault(__webpack_require__(2));
 
 var is_active_1 = __importDefault(__webpack_require__(133));
 
-var util_2 = __webpack_require__(333);
-
 function default_1(editor, text, link) {
   // panel 中需要用到的id
   var inputLinkId = util_1.getRandom('input-link');
@@ -14995,34 +14996,11 @@ function default_1(editor, text, link) {
         fn: function fn() {
           var _context, _context2;
 
-          var _a, _b; // 获取选取
-
-
-          editor.selection.restoreSelection();
-          var topNode = editor.selection.getSelectionRangeTopNodes()[0].getNode();
-          var selection = window.getSelection(); // 执行插入链接
-
+          // 执行插入链接
           var $link = dom_core_1["default"]('#' + inputLinkId);
           var $text = dom_core_1["default"]('#' + inputTextId);
           var link = (0, _trim["default"])(_context = $link.val()).call(_context);
-          var text = (0, _trim["default"])(_context2 = $text.val()).call(_context2);
-          var html = '';
-          if (selection && !(selection === null || selection === void 0 ? void 0 : selection.isCollapsed)) html = (_a = util_2.insertHtml(selection, topNode)) === null || _a === void 0 ? void 0 : (0, _trim["default"])(_a).call(_a); // 去除html的tag标签
-
-          var htmlText = html === null || html === void 0 ? void 0 : html.replace(/<.*?>/g, '');
-          var htmlTextLen = (_b = htmlText === null || htmlText === void 0 ? void 0 : htmlText.length) !== null && _b !== void 0 ? _b : 0; // 当input中的text的长度大于等于选区的文字时
-          // 需要判断两者相同的长度的text内容是否相同
-          // 相同则只需把多余的部分添加上去即可，否则使用input中的内容
-
-          if (htmlTextLen <= text.length) {
-            var startText = text.substring(0, htmlTextLen);
-            var endText = text.substring(htmlTextLen);
-
-            if (htmlText === startText) {
-              text = html + endText;
-            }
-          } // 链接为空，则不插入
-
+          var text = (0, _trim["default"])(_context2 = $text.val()).call(_context2); // 链接为空，则不插入
 
           if (!link) return; // 文本为空，则用链接代替
 
@@ -15059,202 +15037,6 @@ exports["default"] = default_1;
 
 "use strict";
 
-
-var _interopRequireDefault = __webpack_require__(0);
-
-var _defineProperty = _interopRequireDefault(__webpack_require__(1));
-
-var _forEach = _interopRequireDefault(__webpack_require__(3));
-
-(0, _defineProperty["default"])(exports, "__esModule", {
-  value: true
-});
-exports.insertHtml = exports.createPartHtml = exports.makeHtmlString = exports.getTopNode = void 0;
-/**
- * 获取除了包裹在整行区域的顶级Node
- * @param node 最外层node下的某个childNode
- * @param topText 最外层node中文本内容
- */
-
-function getTopNode(node, topText) {
-  var pointerNode = node;
-  var topNode = node;
-
-  do {
-    if (pointerNode.textContent === topText) break;
-    topNode = pointerNode;
-
-    if (pointerNode.parentNode) {
-      pointerNode = pointerNode === null || pointerNode === void 0 ? void 0 : pointerNode.parentNode;
-    }
-  } while ((pointerNode === null || pointerNode === void 0 ? void 0 : pointerNode.nodeName) !== 'P');
-
-  return topNode;
-}
-
-exports.getTopNode = getTopNode;
-/**
- * 生成html的string形式
- * @param tagName 标签名
- * @param content 需要包裹的内容
- */
-
-function makeHtmlString(node, content) {
-  var tagName = node.nodeName;
-  var attr = '';
-
-  if (node.nodeType === 3) {
-    return content;
-  }
-
-  if (node.nodeType === 1) {
-    var style = node.getAttribute('style');
-    var face = node.getAttribute('face');
-    var color = node.getAttribute('color');
-    if (style) attr = attr + (" style=\"" + style + "\"");
-    if (face) attr = attr + (" face=\"" + face + "\"");
-    if (color) attr = attr + (" color=\"" + color + "\"");
-  }
-
-  tagName = tagName.toLowerCase();
-  return "<" + tagName + attr + ">" + content + "</" + tagName + ">";
-}
-
-exports.makeHtmlString = makeHtmlString;
-/**
- * 生成开始或者结束位置的html字符片段
- * @param topText 选区所在的行的文本内容
- * @param node 选区给出的node节点
- * @param startPos node文本内容选取的开始位置
- * @param endPos node文本内容选取的结束位置
- */
-
-function createPartHtml(topText, node, startPos, endPost) {
-  var _a;
-
-  var selectionContent = (_a = node.textContent) === null || _a === void 0 ? void 0 : _a.substring(startPos, endPost);
-  var pointerNode = node;
-  var content = '';
-
-  do {
-    content = makeHtmlString(pointerNode, selectionContent !== null && selectionContent !== void 0 ? selectionContent : '');
-    selectionContent = content;
-    if (pointerNode.parentElement) pointerNode = pointerNode === null || pointerNode === void 0 ? void 0 : pointerNode.parentElement;
-  } while (pointerNode.textContent !== topText);
-
-  return content;
-}
-
-exports.createPartHtml = createPartHtml;
-/**
- * 生成需要插入的html内容的字符串形式
- * @param selection 选区对象
- * @param topNode 选区所在行的顶级node节点
- */
-
-function insertHtml(selection, topNode) {
-  var _a, _b, _c, _d, _e;
-
-  var anchorNode = selection.anchorNode,
-      focusNode = selection.focusNode,
-      anchorPos = selection.anchorOffset,
-      focusPos = selection.focusOffset;
-  var topText = (_a = topNode.textContent) !== null && _a !== void 0 ? _a : '';
-  var TagArr = getContainerTag(topNode);
-  var content = '';
-  var startContent = '';
-  var middleContent = '';
-  var endContent = '';
-  var startNode = anchorNode;
-  var endNode = focusNode; // 用来保存 anchorNode的非p最外层节点
-
-  var pointerNode = anchorNode; // 节点是同一个的处理
-
-  if (anchorNode === null || anchorNode === void 0 ? void 0 : anchorNode.isEqualNode(focusNode !== null && focusNode !== void 0 ? focusNode : null)) {
-    var innerContent = createPartHtml(topText, anchorNode, anchorPos, focusPos);
-    innerContent = addContainer(TagArr, innerContent);
-    return innerContent;
-  } // 选中开始位置节点的处理
-
-
-  if (anchorNode) startContent = createPartHtml(topText, anchorNode, anchorPos !== null && anchorPos !== void 0 ? anchorPos : 0); // 结束位置节点的处理
-
-  if (focusNode) endContent = createPartHtml(topText, focusNode, 0, focusPos); // 将指针节点位置放置到开始的节点
-
-  if (anchorNode) {
-    // 获取start的非p顶级node
-    startNode = getTopNode(anchorNode, topText);
-  }
-
-  if (focusNode) {
-    // 获取end的非p顶级node
-    endNode = getTopNode(focusNode, topText);
-  } // 处于开始和结束节点位置之间的节点的处理
-
-
-  pointerNode = (_b = startNode === null || startNode === void 0 ? void 0 : startNode.nextSibling) !== null && _b !== void 0 ? _b : anchorNode;
-
-  while (!(pointerNode === null || pointerNode === void 0 ? void 0 : pointerNode.isEqualNode(endNode !== null && endNode !== void 0 ? endNode : null))) {
-    var pointerNodeName = pointerNode === null || pointerNode === void 0 ? void 0 : pointerNode.nodeName;
-
-    if (pointerNodeName === '#text') {
-      middleContent = middleContent + (pointerNode === null || pointerNode === void 0 ? void 0 : pointerNode.textContent);
-    } else {
-      var htmlString = (_d = (_c = pointerNode === null || pointerNode === void 0 ? void 0 : pointerNode.firstChild) === null || _c === void 0 ? void 0 : _c.parentElement) === null || _d === void 0 ? void 0 : _d.innerHTML;
-      if (pointerNode) middleContent = middleContent + makeHtmlString(pointerNode, htmlString !== null && htmlString !== void 0 ? htmlString : '');
-    }
-
-    pointerNode = (_e = pointerNode === null || pointerNode === void 0 ? void 0 : pointerNode.nextSibling) !== null && _e !== void 0 ? _e : pointerNode;
-  }
-
-  content = "" + startContent + middleContent + endContent; // 增加最外层包裹标签
-
-  content = addContainer(TagArr, content);
-  return content;
-}
-
-exports.insertHtml = insertHtml;
-/**
- * 获取包裹在最外层的非p Node tagName 数组
- * @param node 选区所在行的node节点
- */
-
-function getContainerTag(node) {
-  var _a;
-
-  var topText = (_a = node.textContent) !== null && _a !== void 0 ? _a : '';
-  var tagArr = [];
-
-  while ((node === null || node === void 0 ? void 0 : node.textContent) === topText) {
-    if (node.nodeName !== 'P') {
-      tagArr.push(node);
-    }
-
-    node = node.childNodes[0];
-  }
-
-  return tagArr;
-}
-/**
- * 为内容增加包裹标签
- * @param tagArr 最外层包裹的tag数组，索引越小tag越在外面
- * @param content tag要包裹的内容
- */
-
-
-function addContainer(tagArr, content) {
-  (0, _forEach["default"])(tagArr).call(tagArr, function (v) {
-    content = makeHtmlString(v, content);
-  });
-  return content;
-}
-
-/***/ }),
-/* 334 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 /**
  * @description 绑定链接元素的事件，入口
  * @author wangfupeng
@@ -15274,7 +15056,7 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   value: true
 });
 
-var tooltip_event_1 = __importDefault(__webpack_require__(335));
+var tooltip_event_1 = __importDefault(__webpack_require__(334));
 /**
  * 绑定事件
  * @param editor 编辑器实例
@@ -15289,7 +15071,7 @@ function bindEvent(editor) {
 exports["default"] = bindEvent;
 
 /***/ }),
-/* 335 */
+/* 334 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15396,7 +15178,7 @@ function bindTooltipEvent(editor) {
 exports["default"] = bindTooltipEvent;
 
 /***/ }),
-/* 336 */
+/* 335 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15512,7 +15294,7 @@ function (_super) {
 exports["default"] = Italic;
 
 /***/ }),
-/* 337 */
+/* 336 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15629,7 +15411,7 @@ function (_super) {
 exports["default"] = Underline;
 
 /***/ }),
-/* 338 */
+/* 337 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15745,7 +15527,7 @@ function (_super) {
 exports["default"] = StrikeThrough;
 
 /***/ }),
-/* 339 */
+/* 338 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15806,7 +15588,7 @@ var DropListMenu_1 = __importDefault(__webpack_require__(24));
 
 var dom_core_1 = __importDefault(__webpack_require__(2));
 
-var FontStyleList_1 = __importDefault(__webpack_require__(340));
+var FontStyleList_1 = __importDefault(__webpack_require__(339));
 
 var FontStyle =
 /** @class */
@@ -15852,9 +15634,8 @@ function (_super) {
         var $elems = editor.selection.getSelectionRangeTopNodes();
         editor.selection.createRangeByElem($elems[0]);
         editor.selection.moveCursor($elems[0].elems[0]);
-      }
+      } // 插入空白选区
 
-      editor.selection.setRangeToContainerElem($selectionElem); // 插入空白选区
 
       editor.selection.createEmptyRange();
     }
@@ -15888,7 +15669,7 @@ function (_super) {
 exports["default"] = FontStyle;
 
 /***/ }),
-/* 340 */
+/* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15948,7 +15729,7 @@ function () {
 exports["default"] = FontStyleList;
 
 /***/ }),
-/* 341 */
+/* 340 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16009,7 +15790,7 @@ var DropListMenu_1 = __importDefault(__webpack_require__(24));
 
 var dom_core_1 = __importDefault(__webpack_require__(2));
 
-var FontSizeList_1 = __importDefault(__webpack_require__(342));
+var FontSizeList_1 = __importDefault(__webpack_require__(341));
 
 var FontSize =
 /** @class */
@@ -16055,9 +15836,8 @@ function (_super) {
         var $elems = editor.selection.getSelectionRangeTopNodes();
         editor.selection.createRangeByElem($elems[0]);
         editor.selection.moveCursor($elems[0].elems[0]);
-      }
+      } // 插入空白选区
 
-      editor.selection.setRangeToContainerElem($selectionElem); // 插入空白选区
 
       editor.selection.createEmptyRange();
     }
@@ -16084,7 +15864,7 @@ function (_super) {
 exports["default"] = FontSize;
 
 /***/ }),
-/* 342 */
+/* 341 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16139,7 +15919,7 @@ function () {
 exports["default"] = FontSizeList;
 
 /***/ }),
-/* 343 */
+/* 342 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16159,7 +15939,7 @@ var _defineProperty = _interopRequireDefault(__webpack_require__(1));
 
 var _forEach = _interopRequireDefault(__webpack_require__(3));
 
-var _indexOf = _interopRequireDefault(__webpack_require__(27));
+var _indexOf = _interopRequireDefault(__webpack_require__(30));
 
 var __extends = void 0 && (void 0).__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
@@ -16337,7 +16117,7 @@ function (_super) {
 exports["default"] = Justify;
 
 /***/ }),
-/* 344 */
+/* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16399,9 +16179,9 @@ var dom_core_1 = __importDefault(__webpack_require__(2));
 
 var BtnMenu_1 = __importDefault(__webpack_require__(23));
 
-var bind_event_1 = __importDefault(__webpack_require__(345));
+var bind_event_1 = __importDefault(__webpack_require__(344));
 
-var create_quote_node_1 = __importDefault(__webpack_require__(346));
+var create_quote_node_1 = __importDefault(__webpack_require__(345));
 
 var const_1 = __webpack_require__(8);
 
@@ -16517,7 +16297,7 @@ function (_super) {
 exports["default"] = Quote;
 
 /***/ }),
-/* 345 */
+/* 344 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16578,7 +16358,7 @@ function bindEvent(editor) {
 exports["default"] = bindEvent;
 
 /***/ }),
-/* 346 */
+/* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16618,7 +16398,7 @@ function createQuote($childElem) {
 exports["default"] = createQuote;
 
 /***/ }),
-/* 347 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16762,7 +16542,7 @@ function (_super) {
 exports["default"] = BackColor;
 
 /***/ }),
-/* 348 */
+/* 347 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16876,9 +16656,8 @@ function (_super) {
         var $elems = editor.selection.getSelectionRangeTopNodes();
         editor.selection.createRangeByElem($elems[0]);
         editor.selection.moveCursor($elems[0].elems[0]);
-      }
+      } // 插入空白选区
 
-      editor.selection.setRangeToContainerElem($selectionElem); // 插入空白选区
 
       editor.selection.createEmptyRange();
     } // 获取选区范围的文字
@@ -16916,7 +16695,7 @@ function (_super) {
 exports["default"] = FontColor;
 
 /***/ }),
-/* 349 */
+/* 348 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16978,9 +16757,9 @@ var Panel_1 = __importDefault(__webpack_require__(32));
 
 var PanelMenu_1 = __importDefault(__webpack_require__(34));
 
-var create_panel_conf_1 = __importDefault(__webpack_require__(350));
+var create_panel_conf_1 = __importDefault(__webpack_require__(349));
 
-var index_1 = __importDefault(__webpack_require__(356));
+var index_1 = __importDefault(__webpack_require__(355));
 
 var Video =
 /** @class */
@@ -17029,7 +16808,7 @@ function (_super) {
 exports["default"] = Video;
 
 /***/ }),
-/* 350 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17059,7 +16838,7 @@ var util_1 = __webpack_require__(7);
 
 var dom_core_1 = __importDefault(__webpack_require__(2));
 
-var upload_video_1 = __importDefault(__webpack_require__(351));
+var upload_video_1 = __importDefault(__webpack_require__(350));
 
 var const_1 = __webpack_require__(8);
 
@@ -17198,7 +16977,7 @@ function default_1(editor, video) {
 exports["default"] = default_1;
 
 /***/ }),
-/* 351 */
+/* 350 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17218,7 +16997,7 @@ var _bind = _interopRequireDefault(__webpack_require__(55));
 
 var _forEach = _interopRequireDefault(__webpack_require__(3));
 
-var _indexOf = _interopRequireDefault(__webpack_require__(27));
+var _indexOf = _interopRequireDefault(__webpack_require__(30));
 
 var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
@@ -17271,7 +17050,7 @@ function () {
     var uploadVideoServer = config.uploadVideoServer; // 上传视频的最大体积，默认 1024M
 
     var maxSize = config.uploadVideoMaxSize;
-    var uploadVideoMaxSize = maxSize / 1024; // 一次最多上传多少个视频
+    var uploadVideoMaxSize = maxSize / 1024 / 1024; // 一次最多上传多少个视频
     // const uploadVideoMaxLength = config.uploadVideoMaxLength
     // 自定义上传视频的名称
 
@@ -17500,32 +17279,32 @@ function () {
 exports["default"] = UploadVideo;
 
 /***/ }),
+/* 351 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(352);
+
+/***/ }),
 /* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(353);
-
-/***/ }),
-/* 353 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parent = __webpack_require__(354);
+var parent = __webpack_require__(353);
 
 module.exports = parent;
 
 
 /***/ }),
-/* 354 */
+/* 353 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(355);
+__webpack_require__(354);
 var path = __webpack_require__(10);
 
 module.exports = path.Date.now;
 
 
 /***/ }),
-/* 355 */
+/* 354 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $ = __webpack_require__(6);
@@ -17540,7 +17319,7 @@ $({ target: 'Date', stat: true }, {
 
 
 /***/ }),
-/* 356 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17564,7 +17343,7 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   value: true
 });
 
-var tooltip_event_1 = __importDefault(__webpack_require__(357));
+var tooltip_event_1 = __importDefault(__webpack_require__(356));
 /**
  * 绑定事件
  * @param editor 编辑器实例
@@ -17579,7 +17358,7 @@ function bindEvent(editor) {
 exports["default"] = bindEvent;
 
 /***/ }),
-/* 357 */
+/* 356 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17718,7 +17497,7 @@ function bindTooltipEvent(editor) {
 exports["default"] = bindTooltipEvent;
 
 /***/ }),
-/* 358 */
+/* 357 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17784,9 +17563,9 @@ var Panel_1 = __importDefault(__webpack_require__(32));
 
 var PanelMenu_1 = __importDefault(__webpack_require__(34));
 
-var index_1 = __importDefault(__webpack_require__(359));
+var index_1 = __importDefault(__webpack_require__(358));
 
-var create_panel_conf_1 = __importDefault(__webpack_require__(371));
+var create_panel_conf_1 = __importDefault(__webpack_require__(370));
 
 var Image =
 /** @class */
@@ -17853,7 +17632,7 @@ function (_super) {
 exports["default"] = Image;
 
 /***/ }),
-/* 359 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17877,13 +17656,13 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   value: true
 });
 
-var paste_img_1 = __importDefault(__webpack_require__(360));
+var paste_img_1 = __importDefault(__webpack_require__(359));
 
-var drop_img_1 = __importDefault(__webpack_require__(361));
+var drop_img_1 = __importDefault(__webpack_require__(360));
 
-var drag_size_1 = __importDefault(__webpack_require__(362));
+var drag_size_1 = __importDefault(__webpack_require__(361));
 
-var tooltip_event_1 = __importDefault(__webpack_require__(370));
+var tooltip_event_1 = __importDefault(__webpack_require__(369));
 /**
  * 绑定事件
  * @param editor 编辑器实例
@@ -17905,7 +17684,7 @@ function bindEvent(editor) {
 exports["default"] = bindEvent;
 
 /***/ }),
-/* 360 */
+/* 359 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17950,40 +17729,15 @@ function _haveTextOrHtml(editor, e) {
   return false; // text html 都没有，则返回 false
 }
 /**
- * 剪切板是否有 Files
- * @param editor 编辑器对象
- * @param e 粘贴事件参数
- */
-
-
-function _haveFiles(editor, e) {
-  var _a;
-
-  var types = ((_a = e.clipboardData) === null || _a === void 0 ? void 0 : _a.types) || [];
-
-  for (var i = 0; i < types.length; i++) {
-    var type = types[i];
-
-    if (type === 'Files') {
-      return true;
-    }
-  }
-
-  return false;
-}
-/**
  * 粘贴图片事件方法
  * @param e 事件参数
  */
 
 
 function pasteImgHandler(e, editor) {
-  // 粘贴过来的没有 file 时，判断 text 或者 html
-  if (!_haveFiles(editor, e)) {
-    if (_haveTextOrHtml(editor, e)) {
-      // 粘贴过来的有 text 或者 html ，则不执行粘贴图片逻辑
-      return;
-    }
+  if (_haveTextOrHtml(editor, e)) {
+    // 粘贴过来的有 text 或者 html ，则不执行粘贴图片逻辑
+    return;
   } // 获取粘贴的图片列表
 
 
@@ -18015,7 +17769,7 @@ function bindPasteImg(editor) {
 exports["default"] = bindPasteImg;
 
 /***/ }),
-/* 361 */
+/* 360 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18065,7 +17819,7 @@ function bindDropImg(editor) {
 exports["default"] = bindDropImg;
 
 /***/ }),
-/* 362 */
+/* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18081,7 +17835,7 @@ var _defineProperty = _interopRequireDefault(__webpack_require__(1));
 
 var _find = _interopRequireDefault(__webpack_require__(31));
 
-var _parseFloat2 = _interopRequireDefault(__webpack_require__(363));
+var _parseFloat2 = _interopRequireDefault(__webpack_require__(362));
 
 var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
@@ -18096,7 +17850,7 @@ exports.createShowHideFn = void 0;
 
 var dom_core_1 = __importDefault(__webpack_require__(2));
 
-__webpack_require__(368);
+__webpack_require__(367);
 
 var util_1 = __webpack_require__(7);
 /**
@@ -18268,36 +18022,36 @@ function bindDragImgSize(editor) {
 exports["default"] = bindDragImgSize;
 
 /***/ }),
+/* 362 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(363);
+
+/***/ }),
 /* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(364);
-
-/***/ }),
-/* 364 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parent = __webpack_require__(365);
+var parent = __webpack_require__(364);
 
 module.exports = parent;
 
 
 /***/ }),
-/* 365 */
+/* 364 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(366);
+__webpack_require__(365);
 var path = __webpack_require__(10);
 
 module.exports = path.parseFloat;
 
 
 /***/ }),
-/* 366 */
+/* 365 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $ = __webpack_require__(6);
-var parseFloatImplementation = __webpack_require__(367);
+var parseFloatImplementation = __webpack_require__(366);
 
 // `parseFloat` method
 // https://tc39.es/ecma262/#sec-parsefloat-string
@@ -18307,7 +18061,7 @@ $({ global: true, forced: parseFloat != parseFloatImplementation }, {
 
 
 /***/ }),
-/* 367 */
+/* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(9);
@@ -18327,11 +18081,11 @@ module.exports = FORCED ? function parseFloat(string) {
 
 
 /***/ }),
-/* 368 */
+/* 367 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var api = __webpack_require__(21);
-            var content = __webpack_require__(369);
+            var content = __webpack_require__(368);
 
             content = content.__esModule ? content.default : content;
 
@@ -18351,7 +18105,7 @@ var update = api(content, options);
 module.exports = content.locals || {};
 
 /***/ }),
-/* 369 */
+/* 368 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -18364,7 +18118,7 @@ module.exports = exports;
 
 
 /***/ }),
-/* 370 */
+/* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18525,7 +18279,7 @@ function bindTooltipEvent(editor) {
 exports["default"] = bindTooltipEvent;
 
 /***/ }),
-/* 371 */
+/* 370 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18743,7 +18497,7 @@ function default_1(editor) {
 exports["default"] = default_1;
 
 /***/ }),
-/* 372 */
+/* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18805,7 +18559,7 @@ var dom_core_1 = __importDefault(__webpack_require__(2));
 
 var DropListMenu_1 = __importDefault(__webpack_require__(24));
 
-var operate_element_1 = __importDefault(__webpack_require__(373));
+var operate_element_1 = __importDefault(__webpack_require__(372));
 
 var Indent =
 /** @class */
@@ -18893,7 +18647,7 @@ function (_super) {
 exports["default"] = Indent;
 
 /***/ }),
-/* 373 */
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18923,9 +18677,9 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   value: true
 });
 
-var increase_indent_style_1 = __importDefault(__webpack_require__(374));
+var increase_indent_style_1 = __importDefault(__webpack_require__(373));
 
-var decrease_indent_style_1 = __importDefault(__webpack_require__(375));
+var decrease_indent_style_1 = __importDefault(__webpack_require__(374));
 
 var lengthRegex = /^(\d+)(\w+)$/;
 var percentRegex = /^(\d+)%$/;
@@ -18973,7 +18727,7 @@ function operateElement($node, type, editor) {
 exports["default"] = operateElement;
 
 /***/ }),
-/* 374 */
+/* 373 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19009,7 +18763,7 @@ function increaseIndentStyle($node, options) {
 exports["default"] = increaseIndentStyle;
 
 /***/ }),
-/* 375 */
+/* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19048,7 +18802,7 @@ function decreaseIndentStyle($node, options) {
 exports["default"] = decreaseIndentStyle;
 
 /***/ }),
-/* 376 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19110,7 +18864,7 @@ var PanelMenu_1 = __importDefault(__webpack_require__(34));
 
 var Panel_1 = __importDefault(__webpack_require__(32));
 
-var create_panel_conf_1 = __importDefault(__webpack_require__(377));
+var create_panel_conf_1 = __importDefault(__webpack_require__(376));
 
 var Emoticon =
 /** @class */
@@ -19151,7 +18905,7 @@ function (_super) {
 exports["default"] = Emoticon;
 
 /***/ }),
-/* 377 */
+/* 376 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19260,7 +19014,7 @@ function default_1(editor) {
 exports["default"] = default_1;
 
 /***/ }),
-/* 378 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19283,15 +19037,15 @@ exports.createListHandle = exports.ClassType = void 0;
 
 var dom_core_1 = __importDefault(__webpack_require__(2));
 
-var WrapListHandle_1 = __importDefault(__webpack_require__(379));
+var WrapListHandle_1 = __importDefault(__webpack_require__(378));
 
-var JoinListHandle_1 = __importDefault(__webpack_require__(381));
+var JoinListHandle_1 = __importDefault(__webpack_require__(380));
 
-var StartJoinListHandle_1 = __importDefault(__webpack_require__(382));
+var StartJoinListHandle_1 = __importDefault(__webpack_require__(381));
 
-var EndJoinListHandle_1 = __importDefault(__webpack_require__(383));
+var EndJoinListHandle_1 = __importDefault(__webpack_require__(382));
 
-var OtherListHandle_1 = __importDefault(__webpack_require__(384));
+var OtherListHandle_1 = __importDefault(__webpack_require__(383));
 
 var ClassType;
 
@@ -19342,7 +19096,7 @@ function () {
 exports["default"] = ListHandleCommand;
 
 /***/ }),
-/* 379 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19573,7 +19327,7 @@ function (_super) {
 exports["default"] = WrapListHandle;
 
 /***/ }),
-/* 380 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19643,7 +19397,7 @@ function () {
 exports["default"] = SelectionRangeElem;
 
 /***/ }),
-/* 381 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19933,7 +19687,7 @@ function (_super) {
 exports["default"] = JoinListHandle;
 
 /***/ }),
-/* 382 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20071,7 +19825,7 @@ function (_super) {
 exports["default"] = StartJoinListHandle;
 
 /***/ }),
-/* 383 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20213,7 +19967,7 @@ function (_super) {
 exports["default"] = EndJoinListHandle;
 
 /***/ }),
-/* 384 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20296,7 +20050,7 @@ function (_super) {
 exports["default"] = OtherListHandle;
 
 /***/ }),
-/* 385 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20317,7 +20071,7 @@ var _defineProperty = _interopRequireDefault(__webpack_require__(1));
 
 var _forEach = _interopRequireDefault(__webpack_require__(3));
 
-var _indexOf = _interopRequireDefault(__webpack_require__(27));
+var _indexOf = _interopRequireDefault(__webpack_require__(30));
 
 var __extends = void 0 && (void 0).__extends || function () {
   var _extendStatics = function extendStatics(d, b) {
@@ -20361,7 +20115,7 @@ var DropListMenu_1 = __importDefault(__webpack_require__(24));
 
 var dom_core_1 = __importDefault(__webpack_require__(2));
 
-var lineHeightList_1 = __importDefault(__webpack_require__(386));
+var lineHeightList_1 = __importDefault(__webpack_require__(385));
 
 var util_1 = __webpack_require__(7);
 
@@ -20659,7 +20413,7 @@ function (_super) {
 exports["default"] = LineHeight;
 
 /***/ }),
-/* 386 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20715,7 +20469,7 @@ function () {
 exports["default"] = lineHeightList;
 
 /***/ }),
-/* 387 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20824,7 +20578,7 @@ function (_super) {
 exports["default"] = Undo;
 
 /***/ }),
-/* 388 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20933,7 +20687,7 @@ function (_super) {
 exports["default"] = Redo;
 
 /***/ }),
-/* 389 */
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20993,11 +20747,11 @@ var PanelMenu_1 = __importDefault(__webpack_require__(34));
 
 var dom_core_1 = __importDefault(__webpack_require__(2));
 
-var create_panel_conf_1 = __importDefault(__webpack_require__(390));
+var create_panel_conf_1 = __importDefault(__webpack_require__(389));
 
 var Panel_1 = __importDefault(__webpack_require__(32));
 
-var index_1 = __importDefault(__webpack_require__(399));
+var index_1 = __importDefault(__webpack_require__(398));
 
 var Table =
 /** @class */
@@ -21044,7 +20798,7 @@ function (_super) {
 exports["default"] = Table;
 
 /***/ }),
-/* 390 */
+/* 389 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21058,7 +20812,7 @@ var _interopRequireDefault = __webpack_require__(0);
 
 var _defineProperty = _interopRequireDefault(__webpack_require__(1));
 
-var _isInteger = _interopRequireDefault(__webpack_require__(391));
+var _isInteger = _interopRequireDefault(__webpack_require__(390));
 
 var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
@@ -21074,9 +20828,9 @@ var util_1 = __webpack_require__(7);
 
 var dom_core_1 = __importDefault(__webpack_require__(2));
 
-__webpack_require__(396);
+__webpack_require__(395);
 
-var create_table_1 = __importDefault(__webpack_require__(398));
+var create_table_1 = __importDefault(__webpack_require__(397));
 /**
  * 判断一个数值是否为正整数
  * @param { number } n 被验证的值
@@ -21136,36 +20890,36 @@ function default_1(editor) {
 exports["default"] = default_1;
 
 /***/ }),
+/* 390 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(391);
+
+/***/ }),
 /* 391 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(392);
-
-/***/ }),
-/* 392 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parent = __webpack_require__(393);
+var parent = __webpack_require__(392);
 
 module.exports = parent;
 
 
 /***/ }),
-/* 393 */
+/* 392 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(394);
+__webpack_require__(393);
 var path = __webpack_require__(10);
 
 module.exports = path.Number.isInteger;
 
 
 /***/ }),
-/* 394 */
+/* 393 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $ = __webpack_require__(6);
-var isInteger = __webpack_require__(395);
+var isInteger = __webpack_require__(394);
 
 // `Number.isInteger` method
 // https://tc39.es/ecma262/#sec-number.isinteger
@@ -21175,7 +20929,7 @@ $({ target: 'Number', stat: true }, {
 
 
 /***/ }),
-/* 395 */
+/* 394 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(14);
@@ -21190,11 +20944,11 @@ module.exports = function isInteger(it) {
 
 
 /***/ }),
-/* 396 */
+/* 395 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var api = __webpack_require__(21);
-            var content = __webpack_require__(397);
+            var content = __webpack_require__(396);
 
             content = content.__esModule ? content.default : content;
 
@@ -21214,7 +20968,7 @@ var update = api(content, options);
 module.exports = content.locals || {};
 
 /***/ }),
-/* 397 */
+/* 396 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -21227,7 +20981,7 @@ module.exports = exports;
 
 
 /***/ }),
-/* 398 */
+/* 397 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21317,7 +21071,7 @@ function () {
 exports["default"] = CreateTable;
 
 /***/ }),
-/* 399 */
+/* 398 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21341,9 +21095,9 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   value: true
 });
 
-var tooltip_event_1 = __importDefault(__webpack_require__(400));
+var tooltip_event_1 = __importDefault(__webpack_require__(399));
 
-var keyboard_1 = __importDefault(__webpack_require__(403));
+var keyboard_1 = __importDefault(__webpack_require__(402));
 /**
  * 绑定事件
  * @param editor 编辑器实例
@@ -21359,7 +21113,7 @@ function bindEvent(editor) {
 exports["default"] = bindEvent;
 
 /***/ }),
-/* 400 */
+/* 399 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21388,9 +21142,9 @@ var dom_core_1 = __importDefault(__webpack_require__(2));
 var Tooltip_1 = __importDefault(__webpack_require__(35)); //操作事件
 
 
-var operating_event_1 = __importDefault(__webpack_require__(401));
+var operating_event_1 = __importDefault(__webpack_require__(400));
 
-var getNode_1 = __importDefault(__webpack_require__(402));
+var getNode_1 = __importDefault(__webpack_require__(401));
 
 var const_1 = __webpack_require__(8);
 /**
@@ -21684,7 +21438,7 @@ function bindTooltipEvent(editor) {
 exports["default"] = bindTooltipEvent;
 
 /***/ }),
-/* 401 */
+/* 400 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21927,7 +21681,7 @@ exports["default"] = {
 };
 
 /***/ }),
-/* 402 */
+/* 401 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22039,7 +21793,7 @@ function () {
 exports["default"] = getNode;
 
 /***/ }),
-/* 403 */
+/* 402 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22082,7 +21836,7 @@ function bindEventKeyboardEvent(editor) {
 exports["default"] = bindEventKeyboardEvent;
 
 /***/ }),
-/* 404 */
+/* 403 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22147,13 +21901,13 @@ var dom_core_1 = __importDefault(__webpack_require__(2));
 
 var util_1 = __webpack_require__(7);
 
-var create_panel_conf_1 = __importDefault(__webpack_require__(405));
+var create_panel_conf_1 = __importDefault(__webpack_require__(404));
 
 var is_active_1 = __importDefault(__webpack_require__(137));
 
 var Panel_1 = __importDefault(__webpack_require__(32));
 
-var index_1 = __importDefault(__webpack_require__(406));
+var index_1 = __importDefault(__webpack_require__(405));
 
 function formatCodeHtml(editor, html) {
   if (!html) return html;
@@ -22281,7 +22035,7 @@ function (_super) {
 exports["default"] = Code;
 
 /***/ }),
-/* 405 */
+/* 404 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22421,7 +22175,7 @@ function default_1(editor, text, languageType) {
 exports["default"] = default_1;
 
 /***/ }),
-/* 406 */
+/* 405 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22445,9 +22199,9 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   value: true
 });
 
-var tooltip_event_1 = __importDefault(__webpack_require__(407));
+var tooltip_event_1 = __importDefault(__webpack_require__(406));
 
-var jump_code_block_down_1 = __importDefault(__webpack_require__(408));
+var jump_code_block_down_1 = __importDefault(__webpack_require__(407));
 /**
  * 绑定事件
  * @param editor 编辑器实例
@@ -22464,7 +22218,7 @@ function bindEvent(editor) {
 exports["default"] = bindEvent;
 
 /***/ }),
-/* 407 */
+/* 406 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22596,7 +22350,7 @@ function bindTooltipEvent(editor) {
 exports["default"] = bindTooltipEvent;
 
 /***/ }),
-/* 408 */
+/* 407 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22647,38 +22401,13 @@ function bindEventJumpCodeBlock(editor) {
       var $emptyP = dom_core_1["default"](const_1.EMPTY_P);
       $textElem.append($emptyP);
     }
-  }); // fix: 修复代码块作为最后一个元素时，用户无法再进行输入的问题
-
-  keydownEvents.push(function (e) {
-    // 实时保存选区
-    editor.selection.saveRange();
-    var $selectionContainerElem = selection.getSelectionContainerElem();
-
-    if ($selectionContainerElem) {
-      var $topElem = $selectionContainerElem.getNodeTop(editor); // 获取选区所在节点的上一元素
-
-      var $preElem = $topElem === null || $topElem === void 0 ? void 0 : $topElem.prev(); // 判断该元素后面是否还存在元素
-      // 如果存在则允许删除
-
-      var $nextElem = $topElem === null || $topElem === void 0 ? void 0 : $topElem.getNextSibling();
-
-      if ($preElem.length && ($preElem === null || $preElem === void 0 ? void 0 : $preElem.getNodeName()) === 'PRE' && $nextElem.length === 0) {
-        // 光标处于选区开头
-        if (selection.getCursorPos() === 0) {
-          // 按下delete键阻止默认行为
-          if (e.keyCode === 8) {
-            e.preventDefault();
-          }
-        }
-      }
-    }
   });
 }
 
 exports["default"] = bindEventJumpCodeBlock;
 
 /***/ }),
-/* 409 */
+/* 408 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22738,7 +22467,7 @@ var BtnMenu_1 = __importDefault(__webpack_require__(23));
 
 var dom_core_1 = __importDefault(__webpack_require__(2));
 
-var index_1 = __importDefault(__webpack_require__(410));
+var index_1 = __importDefault(__webpack_require__(409));
 
 var util_1 = __webpack_require__(7);
 
@@ -22811,7 +22540,7 @@ function (_super) {
 exports["default"] = splitLine;
 
 /***/ }),
-/* 410 */
+/* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22831,7 +22560,7 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   value: true
 });
 
-var tooltip_event_1 = __importDefault(__webpack_require__(411));
+var tooltip_event_1 = __importDefault(__webpack_require__(410));
 /**
  * 绑定事件
  * @param editor 编辑器实例
@@ -22846,7 +22575,7 @@ function bindEvent(editor) {
 exports["default"] = bindEvent;
 
 /***/ }),
-/* 411 */
+/* 410 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22939,7 +22668,7 @@ function bindTooltipEvent(editor) {
 exports["default"] = bindTooltipEvent;
 
 /***/ }),
-/* 412 */
+/* 411 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22999,7 +22728,7 @@ var BtnMenu_1 = __importDefault(__webpack_require__(23));
 
 var util_1 = __webpack_require__(100);
 
-var bind_event_1 = __importDefault(__webpack_require__(418));
+var bind_event_1 = __importDefault(__webpack_require__(417));
 
 var todo_1 = __importDefault(__webpack_require__(138));
 
@@ -23093,25 +22822,25 @@ function (_super) {
 exports["default"] = Todo;
 
 /***/ }),
+/* 412 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(413);
+
+/***/ }),
 /* 413 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(414);
-
-/***/ }),
-/* 414 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var parent = __webpack_require__(415);
+var parent = __webpack_require__(414);
 
 module.exports = parent;
 
 
 /***/ }),
-/* 415 */
+/* 414 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var every = __webpack_require__(416);
+var every = __webpack_require__(415);
 
 var ArrayPrototype = Array.prototype;
 
@@ -23122,23 +22851,23 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 416 */
+/* 415 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(417);
+__webpack_require__(416);
 var entryVirtual = __webpack_require__(16);
 
 module.exports = entryVirtual('Array').every;
 
 
 /***/ }),
-/* 417 */
+/* 416 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var $ = __webpack_require__(6);
-var $every = __webpack_require__(30).every;
+var $every = __webpack_require__(29).every;
 var arrayMethodIsStrict = __webpack_require__(71);
 
 var STRICT_METHOD = arrayMethodIsStrict('every');
@@ -23153,7 +22882,7 @@ $({ target: 'Array', proto: true, forced: !STRICT_METHOD }, {
 
 
 /***/ }),
-/* 418 */
+/* 417 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23341,7 +23070,7 @@ function bindEvent(editor) {
 exports["default"] = bindEvent;
 
 /***/ }),
-/* 419 */
+/* 418 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23388,7 +23117,6 @@ function default_1(editor) {
   var $textContainerElem = dom_core_1["default"]('<div></div>');
   var $textElem;
   var $children;
-  var $subChildren = null;
 
   if (textSelector == null) {
     // 将编辑器区域原有的内容，暂存起来
@@ -23400,9 +23128,7 @@ function default_1(editor) {
     $textContainerElem.css('border', styleSettings.border).css('border-top', 'none').css('height', height + "px");
   } else {
     // toolbarSelector 和 textSelector 都有
-    $toolbarSelector.append($toolbarElem); // 菜单分离后，文本区域内容暂存
-
-    $subChildren = dom_core_1["default"](textSelector).children();
+    $toolbarSelector.append($toolbarElem);
     dom_core_1["default"](textSelector).append($textContainerElem); // 将编辑器区域原有的内容，暂存起来
 
     $children = $textContainerElem.children();
@@ -23421,13 +23147,6 @@ function default_1(editor) {
     $placeholder.hide();
   } else {
     $textElem.append(dom_core_1["default"](const_1.EMPTY_P)); // 新增一行，方便继续编辑
-  } // 菜单分离后，文本区域有标签的带入编辑器内
-
-
-  if ($subChildren && $subChildren.length) {
-    $textElem.append($subChildren); // 编辑器有默认值的时候隐藏placeholder
-
-    $placeholder.hide();
   } // 编辑区域加入DOM
 
 
@@ -23463,7 +23182,7 @@ function default_1(editor) {
 exports["default"] = default_1;
 
 /***/ }),
-/* 420 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23536,7 +23255,7 @@ function initSelection(editor, newLine) {
 exports["default"] = initSelection;
 
 /***/ }),
-/* 421 */
+/* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23690,7 +23409,7 @@ function _focusHandler(editor) {
 exports["default"] = bindEvent;
 
 /***/ }),
-/* 422 */
+/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23743,7 +23462,7 @@ function i18nextInit(editor) {
 exports["default"] = i18nextInit;
 
 /***/ }),
-/* 423 */
+/* 422 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23772,7 +23491,7 @@ exports.setUnFullScreen = exports.setFullScreen = void 0;
 
 var dom_core_1 = __importDefault(__webpack_require__(2));
 
-__webpack_require__(424);
+__webpack_require__(423);
 
 var iconFullScreenText = 'w-e-icon-fullscreen'; // 全屏icon class
 
@@ -23849,11 +23568,11 @@ var initFullScreen = function initFullScreen(editor) {
 exports["default"] = initFullScreen;
 
 /***/ }),
-/* 424 */
+/* 423 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var api = __webpack_require__(21);
-            var content = __webpack_require__(425);
+            var content = __webpack_require__(424);
 
             content = content.__esModule ? content.default : content;
 
@@ -23873,7 +23592,7 @@ var update = api(content, options);
 module.exports = content.locals || {};
 
 /***/ }),
-/* 425 */
+/* 424 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -23886,7 +23605,7 @@ module.exports = exports;
 
 
 /***/ }),
-/* 426 */
+/* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23921,7 +23640,7 @@ var scrollToHead = function scrollToHead(editor, id) {
 exports["default"] = scrollToHead;
 
 /***/ }),
-/* 427 */
+/* 426 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23984,7 +23703,7 @@ function () {
 exports["default"] = ZIndex;
 
 /***/ }),
-/* 428 */
+/* 427 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24044,7 +23763,7 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   value: true
 });
 
-var mutation_1 = __importDefault(__webpack_require__(429));
+var mutation_1 = __importDefault(__webpack_require__(428));
 
 var util_1 = __webpack_require__(7);
 
@@ -24162,7 +23881,7 @@ function (_super) {
 exports["default"] = Change;
 
 /***/ }),
-/* 429 */
+/* 428 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24263,7 +23982,7 @@ function () {
 exports["default"] = Mutation;
 
 /***/ }),
-/* 430 */
+/* 429 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24287,11 +24006,11 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   value: true
 });
 
-var content_1 = __importDefault(__webpack_require__(431));
+var content_1 = __importDefault(__webpack_require__(430));
 
-var scroll_1 = __importDefault(__webpack_require__(438));
+var scroll_1 = __importDefault(__webpack_require__(437));
 
-var range_1 = __importDefault(__webpack_require__(439));
+var range_1 = __importDefault(__webpack_require__(438));
 /**
  * 历史记录（撤销、恢复）
  */
@@ -24391,7 +24110,7 @@ function () {
 exports["default"] = History;
 
 /***/ }),
-/* 431 */
+/* 430 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24415,9 +24134,9 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
   value: true
 });
 
-var node_1 = __importDefault(__webpack_require__(432));
+var node_1 = __importDefault(__webpack_require__(431));
 
-var html_1 = __importDefault(__webpack_require__(436));
+var html_1 = __importDefault(__webpack_require__(435));
 
 var ContentCache =
 /** @class */
@@ -24482,7 +24201,7 @@ function () {
 exports["default"] = ContentCache;
 
 /***/ }),
-/* 432 */
+/* 431 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24540,9 +24259,9 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
 
 var cache_1 = __importDefault(__webpack_require__(101));
 
-var compile_1 = __importDefault(__webpack_require__(434));
+var compile_1 = __importDefault(__webpack_require__(433));
 
-var decompilation_1 = __webpack_require__(435);
+var decompilation_1 = __webpack_require__(434);
 
 var NodeCache =
 /** @class */
@@ -24595,7 +24314,7 @@ function (_super) {
 exports["default"] = NodeCache;
 
 /***/ }),
-/* 433 */
+/* 432 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24706,7 +24425,7 @@ function () {
 exports.CeilStack = CeilStack;
 
 /***/ }),
-/* 434 */
+/* 433 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24722,7 +24441,7 @@ var _defineProperty = _interopRequireDefault(__webpack_require__(1));
 
 var _forEach = _interopRequireDefault(__webpack_require__(3));
 
-var _indexOf = _interopRequireDefault(__webpack_require__(27));
+var _indexOf = _interopRequireDefault(__webpack_require__(30));
 
 (0, _defineProperty["default"])(exports, "__esModule", {
   value: true
@@ -24913,7 +24632,7 @@ function contains(tar, childs) {
 }
 
 /***/ }),
-/* 435 */
+/* 434 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25088,7 +24807,7 @@ function restore(data) {
 exports.restore = restore;
 
 /***/ }),
-/* 436 */
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25102,7 +24821,7 @@ var _defineProperty = _interopRequireDefault(__webpack_require__(1));
   value: true
 });
 
-var chain_1 = __webpack_require__(437);
+var chain_1 = __webpack_require__(436);
 
 var HtmlCache =
 /** @class */
@@ -25167,7 +24886,7 @@ function () {
 exports["default"] = HtmlCache;
 
 /***/ }),
-/* 437 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25303,7 +25022,7 @@ function () {
 exports.TailChain = TailChain;
 
 /***/ }),
-/* 438 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25433,7 +25152,7 @@ function (_super) {
 exports["default"] = ScrollCache;
 
 /***/ }),
-/* 439 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25644,7 +25363,7 @@ function (_super) {
 exports["default"] = RangeCache;
 
 /***/ }),
-/* 440 */
+/* 439 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25668,7 +25387,7 @@ var __importDefault = void 0 && (void 0).__importDefault || function (mod) {
 
 var dom_core_1 = __importDefault(__webpack_require__(2));
 
-__webpack_require__(441);
+__webpack_require__(440);
 
 function disableInit(editor) {
   var isCurtain = false; // 避免重复生成幕布
@@ -25716,11 +25435,11 @@ function disableInit(editor) {
 exports["default"] = disableInit;
 
 /***/ }),
-/* 441 */
+/* 440 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var api = __webpack_require__(21);
-            var content = __webpack_require__(442);
+            var content = __webpack_require__(441);
 
             content = content.__esModule ? content.default : content;
 
@@ -25740,7 +25459,7 @@ var update = api(content, options);
 module.exports = content.locals || {};
 
 /***/ }),
-/* 442 */
+/* 441 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -25753,7 +25472,7 @@ module.exports = exports;
 
 
 /***/ }),
-/* 443 */
+/* 442 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25820,7 +25539,7 @@ $text1.val(editor.txt.html());
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\laragon\www\zhihu\resources\js\js\ckeditor.js */"./resources/js/js/ckeditor.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\zhihu\resources\js\js\ckeditor.js */"./resources/js/js/ckeditor.js");
 
 
 /***/ })

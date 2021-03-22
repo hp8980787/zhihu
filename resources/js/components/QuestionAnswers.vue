@@ -15,10 +15,11 @@
                     <p v-html="answer.body"></p>
                 </div>
                 <ul class="list-group list-group-horizontal">
-                    <li class="list-group-item"><i class="fa fa-thumbs-o-up"></i>{{ like_counts }}</li>
-                    <li class="list-group-item"><a v-on:click="like()"><i
-                        v-bind:class="isLike(answer.votes)?'question-unlike':'question-like'"
-                        class="fa fa-heart"></i>{{ text }}</a></li>
+                    <li class="list-group-item"><i class="fa fa-thumbs-o-up"></i>{{ answer.votes_count }}</li>
+                    <li class="list-group-item"><a v-on:click="like(answer.id)"><i
+                        v-bind:class="isLike(answer.id)?'question-unlike':'question-like'"
+                        v-text="isLike(answer.id)?'取消关注':'喜欢'"
+                        class="fa fa-heart"></i></a></li>
                     <li class="list-group-item">回复</li>
                     <li class="list-group-item">举报</li>
                 </ul>
@@ -38,6 +39,8 @@ export default {
             answers: [],
             "is_load": true,
             "like_counts": 0,
+            likes: [],
+
         };
     },
     mounted() {
@@ -46,39 +49,48 @@ export default {
     computed: {
         imgLikePath() {
             return this.is_like ? '/image/liked.png' : '/image/like.png';
-        }, text() {
-            return this.is_like ? '取消喜欢' : '喜欢';
-        }
+        },
     }, methods: {
-        like: function () {
-            var like = this;
-            axios.post('/api/answer-like', {
-                'answer_id': like.answer,
-            }).then(function (response) {
-                like.is_like = response.data.is_like;
-                like.like_counts = response.data.like_count;
-                this.selectAll();
-            }).catch(function (error) {
+        async like(answer) {
+            // var like = this;
+            // var a = await axios.xios.post('/api/answer-like', {
+            //     'answer_id': answer,
+            // });
+            // console.log(a)
 
-            });
+            // axios.post('/api/answer-like', {
+            //     'answer_id': answer,
+            // }).then(function (response) {
+            //
+            //     this.selectAll();
+            // }).catch(function (error) {
+            //
+            // });
         },
-        selectAll: function () {
-            var like = this;
-            axios.get('/api/answers?question=' + like.question)
-                .then(function (response) {
-                    like.is_load = false;
-                    like.answers = response.data;
-                    console.log(response);
-                }).catch(function (error) {
-
-            });
-        },
-        isLike: function (votes) {
-            console.log(typeof votes);
-            if (typeof (votes) == 'object') {
-                return votes.length > 0 ? true : false;
+        async selectAll() {
+            let {data} = await axios.get('/api/answers?question=' + this.question);
+            if (data.answers.length > 0) {
+                this.is_load = false;
             }
-        }
+            let {answers, likes} = data;
+            this.answers = answers;
+            this.likes = likes;
+            console.log(answers);
+        },
+
+        isLike(answer_id) {
+
+            var data = this.likes;
+            if (typeof (data) == 'object') {
+                for (var i in data) {
+                    if (data[i] == answer_id) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        },
+
     }
 
 }

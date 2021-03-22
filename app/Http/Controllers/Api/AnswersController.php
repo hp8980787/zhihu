@@ -3,12 +3,19 @@
 namespace App\Http\Controllers\Api;
 
 use App\Answer;
+use App\Vote;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class AnswersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,12 +24,19 @@ class AnswersController extends Controller
     public function index(Request $request)
     {
         $user = Auth::guard('api')->user();
-        $answer = Answer::query()->with(['user','votes'])->where('question_id',$request->question)->where('close_comment','F')
-            ->get()->each(function ($item)use ($user){
-//                $item->votes->is_like = $user->id==$item->
-            });
 
-        return response($answer,200);
+        $likes = [];
+        $answers = Answer::query()->with('user')->where('question_id', $request->question)->where('close_comment', 'F')
+            ->get()->toArray();
+        $answer_id = array_column($answers, 'id');
+        if ($user) {
+            $votes = Vote::query()->where('user_id', $user->id)->whereIn('answer_id', $answer_id)->get();
+            if (sizeof($votes) > 0) {
+                $likes = $votes->pluck('answer_id');
+            }
+        }
+
+        return response(['answers' => $answers, 'likes' => $likes], 200);
     }
 
     /**
