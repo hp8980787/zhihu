@@ -34,7 +34,6 @@ class UserFollowController extends Controller
         $userFollowed = User::query()->findOrFail($followed_id);
         $userFollower = Auth::guard('api')->user();
         $followed = $userFollowed->followers()->toggle($userFollower->id);
-
         if (sizeof($followed['detached']) > 0) {
             $userFollower->decrement('followings_count');
             $userFollowed->decrement('followers_count');

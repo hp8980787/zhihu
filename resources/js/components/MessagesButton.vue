@@ -1,6 +1,6 @@
 <template>
     <div>
-        <user-follow-button followed_id="followed_id"></user-follow-button>
+        <user-follow-button :followed_id="followed_id"></user-follow-button>
         <a class="btn btn-info" v-on:click="toShow()" href="javascript:;">发私信</a>
 
         <div class="messageToUser" style="transition: 0.3s" v-bind:style="is_display?'':'display:none'">
@@ -79,10 +79,10 @@ export default {
                         from_user_id: this.userObject.id,
                     }
                 })
-                if (data.status==200){
+                if (data.status == 200) {
 
                     Swal.fire(data.message);
-                }else {
+                } else {
                     Swal.fire(data.message);
                 }
 
@@ -131,7 +131,8 @@ export default {
     h4 {
         margin: 30px 0 15px;
         padding-left: 5px;
-        span{
+
+        span {
             color: #6cb2eb;
         }
     }
