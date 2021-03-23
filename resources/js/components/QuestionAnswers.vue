@@ -16,12 +16,16 @@
                 </div>
                 <ul class="list-group list-group-horizontal">
                     <li class="list-group-item"><i class="fa fa-thumbs-o-up"></i>{{ answer.votes_count }}</li>
-                    <li class="list-group-item"><a v-on:click="like(answer.id)"><i
-                        v-bind:class="isLike(answer.id)?'question-unlike':'question-like'"
-                        v-text="isLike(answer.id)?'取消关注':'喜欢'"
-                        class="fa fa-heart"></i></a></li>
+                    <li class="list-group-item">
+                        <a v-on:click="like(answer.id)">
+                            <i v-bind:class="isLike(answer.id)?'question-unlike':'question-like'"
+                               v-text="isLike(answer.id)?'取消关注':'喜欢'"
+                               class="fa fa-heart"></i></a></li>
                     <li class="list-group-item">回复</li>
                     <li class="list-group-item">举报</li>
+                    <li v-on:click="answerDel(answer.id)" v-if="userId==answer.user.id?true:false"
+                        class="list-group-item">删除回复
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -33,7 +37,7 @@
 <script>
 export default {
     name: "QuestionAnswers",
-    props: ['question'],
+    props: ['question', 'user'],
     data() {
         return {
             answers: [],
@@ -50,22 +54,21 @@ export default {
         imgLikePath() {
             return this.is_like ? '/image/liked.png' : '/image/like.png';
         },
+        userId() {
+
+            return this.user?JSON.parse(this.user).id:false;
+        }
     }, methods: {
         async like(answer) {
-            // var like = this;
-            // var a = await axios.xios.post('/api/answer-like', {
-            //     'answer_id': answer,
-            // });
-            // console.log(a)
 
-            // axios.post('/api/answer-like', {
-            //     'answer_id': answer,
-            // }).then(function (response) {
-            //
-            //     this.selectAll();
-            // }).catch(function (error) {
-            //
-            // });
+            let {data} = await axios.post('/api/answer-like', {
+                answer_id: answer,
+                question: this.question,
+            });
+            let {answers, likes} = data;
+            this.answers = answers;
+            this.likes = likes;
+            console.log(data);
         },
         async selectAll() {
             let {data} = await axios.get('/api/answers?question=' + this.question);
@@ -75,7 +78,17 @@ export default {
             let {answers, likes} = data;
             this.answers = answers;
             this.likes = likes;
-            console.log(answers);
+            this.is_load = false;
+
+        },
+        async answerDel(answer) {
+            let {data} = await axios.delete('/api/answers/'+answer,{
+                params:{
+                    user_id:this.userId
+                }
+            });
+           return this.selectAll();
+            console.log(data);
         },
 
         isLike(answer_id) {

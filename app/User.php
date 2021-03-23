@@ -84,7 +84,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function votes()
     {
-        return $this->belongsToMany(Answer::class, 'votes', 'answer_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany(Answer::class, 'votes', 'user_id', 'answer_id')->withTimestamps();
     }
 
     public function voteFor($answer)
@@ -96,6 +96,11 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return !!$this->votes()->where('answer_id', $answer)->count();
 
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class,'to_user_id','id');
     }
 
 }

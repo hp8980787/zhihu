@@ -28,11 +28,15 @@ Vue.component('question-follow-button', require('./components/QuestionFollowButt
 Vue.component('user-follow-button', require('./components/UserFollowButton.vue').default)
 // Vue.component('question-like-button', require('./components/QuestionLikeButton').default)
 Vue.component('question-answer', require('./components/QuestionAnswers').default)
+Vue.component('message-user', require('./components/MessagesButton').default)
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+// ES6 Modules or TypeScript
+
+// CommonJS
 
 const app = new Vue({
     el: '#app'

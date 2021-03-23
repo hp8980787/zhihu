@@ -20,7 +20,7 @@ class Answer extends Model
 
     public function scopePublished($query)
     {
-        return $query->where('is_hidden', 'F');
+        return $query->where('close_comment', 'F');
     }
 
     public function votes()

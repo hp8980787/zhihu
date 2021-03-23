@@ -2,41 +2,21 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Answer;
-use App\Vote;
+use App\Message;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class AnswersController extends Controller
+class MessagesController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth:api')->except('index');
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = Auth::guard('api')->user();
-
-        $likes = [];
-        $answers = Answer::query()->with('user')->where('question_id', $request->question)->where('close_comment', 'F')
-            ->get()->toArray();
-        $answer_id = array_column($answers, 'id');
-        if ($user) {
-            $votes = Vote::query()->where('user_id', $user->id)->whereIn('answer_id', $answer_id)->get();
-            if (sizeof($votes) > 0) {
-                $likes = $votes->pluck('answer_id');
-            }
-        }
-
-        return response(['answers' => $answers, 'likes' => $likes], 200);
+        //
     }
 
     /**
@@ -57,7 +37,17 @@ class AnswersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::guard('api')->user();
+        dd($request->from_user_id);
+        if ($user->id == $request->from_user_id) {
+            Message::query()->create([
+                'from_user_id' => $request->from_user_id,
+                'to_user_id' => $request->to_user_id,
+                'body' => clean(html_entity_decode($request->body) . 'question'),
+            ]);
+            return response(['message' => '发送成功'], 200);
+        }
+        return response(['message'=>'权限认证失败'], 403);
     }
 
     /**
@@ -100,13 +90,8 @@ class AnswersController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$id)
+    public function destroy($id)
     {
-        $user = Auth::guard('api')->user();
-        if ($request->user_id==$user->id){
-           Answer::query()->where('id',$id)->delete();
-           return response('success',200);
-        }
-
+        //
     }
 }

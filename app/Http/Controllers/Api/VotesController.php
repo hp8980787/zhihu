@@ -7,9 +7,16 @@ use App\Vote;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\AnswersRepository;
 
 class VotesController extends Controller
 {
+    protected $answers;
+
+    public function __construct(AnswersRepository $answersRepository)
+    {
+        $this->answers = $answersRepository;
+    }
 
 
     public function like(Request $request)
@@ -20,12 +27,16 @@ class VotesController extends Controller
 
         $vote = $user->votes()->toggle($answer->id);
 
+        $answers = $this->answers->handleLike($request->question, $user);
+
         if (sizeof($vote['attached']) > 0) {
             $answer->increment('votes_count');
-            return response(['is_like' => true, 'like_counts' => $answer->vote_count]);
+            $answers = $this->answers->handleLike($request->question, $user);
+            return response($answers);
         }
         $answer->decrement('votes_count');
-        return response(['is_like' => false, 'like_counts' => $answer->vote_count]);
+        $answers = $this->answers->handleLike($request->question, $user);
+        return response($answers);
 
     }
 }

@@ -44,7 +44,7 @@
 
                     <div class="col-md-12">
 
-                        <question-answer question="{{ $question->id }}"></question-answer>
+                        <question-answer question="{{ $question->id }}" user="{{ Auth::user() }}"></question-answer>
 
                         <div>
                             @if(Auth::check())
@@ -125,8 +125,8 @@
                         </div>
                     </div>
 
-                    <user-follow-button followed_id="{{ $question->user->id }}"></user-follow-button>
-                    <a href="#" class="btn btn-secondary">发私信</a>
+                    <message-user questionuser="{{ $question->user->name }}" user="{{ auth()->user() }}"
+                                  followed_id="{{ $question->user->id }}"></message-user>
                 </div>
 
             </div>

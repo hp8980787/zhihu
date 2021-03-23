@@ -22,7 +22,7 @@ class AnswersController extends Controller
        $answer = $this->answers->create([
            'user_id'=>Auth::id(),
            'question_id'=>$question,
-           'body'=>$request->body,
+           'body'=>clean(html_entity_decode($request->body),'question'),
        ]) ;
 
        $answer->question()->increment('answers_count');

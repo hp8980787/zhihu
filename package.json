@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "font-awesome": "^4.7.0",
+        "sweetalert2": "^10.15.6",
         "tinymce": "^4.5.12",
         "wangeditor": "^4.6.8"
     }

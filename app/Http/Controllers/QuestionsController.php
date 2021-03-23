@@ -54,10 +54,11 @@ class QuestionsController extends Controller
             'title' => 'required|min:5|max:255',
             'body' => 'required'
         ]);
+        $body =clean(html_entity_decode($request->body),'question');
         $topics = $this->questionsRepository->normalizeTopic($request->get('topics'));
         $data = [
             'title' => $request->title,
-            'body' => $request->body,
+            'body' =>$body,
             'user_id' => Auth::id(),
         ];
         $questions = $this->questionsRepository->create($data);
