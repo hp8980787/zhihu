@@ -1833,11 +1833,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context.next = 8;
                 return axios.post('/api/messages/store', {
-                  data: {
-                    to_user_id: _this2.followed_id,
-                    body: body,
-                    from_user_id: _this2.userObject.id
-                  }
+                  to_user_id: _this2.followed_id,
+                  body: body,
+                  from_user_id: _this2.userObject.id
                 });
 
               case 8:

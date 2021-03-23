@@ -38,7 +38,6 @@ class MessagesController extends Controller
     public function store(Request $request)
     {
         $user = Auth::guard('api')->user();
-        dd($request->from_user_id);
         if ($user->id == $request->from_user_id) {
             Message::query()->create([
                 'from_user_id' => $request->from_user_id,

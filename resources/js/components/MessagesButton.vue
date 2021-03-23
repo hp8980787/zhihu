@@ -64,6 +64,7 @@ export default {
 
             console.log(this.questionuser)
         }, async send() {
+
             if (!this.user) {
                 Swal.fire('您未登录', '请先登录', 'error');
 
@@ -73,11 +74,11 @@ export default {
                     Swal.fire('发送错误', '发送内容不能为空!', 'error')
                 }
                 let {data} = await axios.post('/api/messages/store', {
-                    data: {
+
                         to_user_id: this.followed_id,
                         body: body,
                         from_user_id: this.userObject.id,
-                    }
+
                 })
                 if (data.status == 200) {
 
