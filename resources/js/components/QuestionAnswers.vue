@@ -1,6 +1,7 @@
 <template>
     <div style="text-align: center" v-if="is_load"><img src="/image/load.gif" alt=""></div>
     <div v-else>
+
         <ul class="list-unstyled">
             <li v-for="answer in answers" style="margin: 30px 30px">
                 <div class="" style="width: 100%">
@@ -21,7 +22,8 @@
                             <i v-bind:class="isLike(answer.id)?'question-unlike':'question-like'"
                                v-text="isLike(answer.id)?'取消关注':'喜欢'"
                                class="fa fa-heart"></i></a></li>
-                    <li class="list-group-item">回复</li>
+                    <li class="list-group-item"><a style="color:#4e555b" data-toggle="modal" data-target="#exampleModal"
+                                                   href="javascript:;">回复</a></li>
                     <li class="list-group-item">举报</li>
                     <li v-on:click="answerDel(answer.id)" v-if="userId==answer.user.id?true:false"
                         class="list-group-item">删除回复
@@ -30,13 +32,39 @@
             </li>
         </ul>
 
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <sample-wang-editor></sample-wang-editor>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </template>
 
 <script>
+import WangEditor from "./Editor/WangEditor";
+
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('focus')
+})
 export default {
     name: "QuestionAnswers",
+    components: {WangEditor},
     props: ['question', 'user'],
     data() {
         return {
@@ -56,7 +84,7 @@ export default {
         },
         userId() {
 
-            return this.user?JSON.parse(this.user).id:false;
+            return this.user ? JSON.parse(this.user).id : false;
         }
     }, methods: {
         async like(answer) {
@@ -82,12 +110,12 @@ export default {
 
         },
         async answerDel(answer) {
-            let {data} = await axios.delete('/api/answers/'+answer,{
-                params:{
-                    user_id:this.userId
+            let {data} = await axios.delete('/api/answers/' + answer, {
+                params: {
+                    user_id: this.userId
                 }
             });
-           return this.selectAll();
+            return this.selectAll();
             console.log(data);
         },
 
@@ -110,5 +138,7 @@ export default {
 </script>
 
 <style scoped>
-
+#exampleModal {
+    width: 1200px;
+}
 </style>

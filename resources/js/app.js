@@ -29,6 +29,7 @@ Vue.component('user-follow-button', require('./components/UserFollowButton.vue')
 // Vue.component('question-like-button', require('./components/QuestionLikeButton').default)
 Vue.component('question-answer', require('./components/QuestionAnswers').default)
 Vue.component('message-user', require('./components/MessagesButton').default)
+Vue.component('sample-wang-editor',require('./components/Editor/WangEditor').default)
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

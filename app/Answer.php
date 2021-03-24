@@ -30,8 +30,12 @@ class Answer extends Model
 
     public function hasVote($user_id)
     {
-        return !! $this->votes()->where('user_id',$user_id)->count();
+        return !!$this->votes()->where('user_id', $user_id)->count();
     }
 
+    public function comments()
+    {
+        return $this->morphToMany('App\Comment','commentable');
+    }
 
 }

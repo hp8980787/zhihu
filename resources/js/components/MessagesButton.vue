@@ -86,6 +86,7 @@ export default {
                 } else {
                     Swal.fire(data.message);
                 }
+                this.toShow();
 
             }
         }
