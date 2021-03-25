@@ -22,8 +22,9 @@
                             <i v-bind:class="isLike(answer.id)?'question-unlike':'question-like'"
                                v-text="isLike(answer.id)?'取消关注':'喜欢'"
                                class="fa fa-heart"></i></a></li>
-                    <li class="list-group-item"><a style="color:#4e555b" data-toggle="modal" data-target="#exampleModal"
-                                                   href="javascript:;">回复</a></li>
+                    <li class="list-group-item"><a v-on:click="selectComments(answer.id)" style="color:#4e555b"
+                                                   data-toggle="modal" data-target="#exampleModal"
+                                                   href="javascript:;">评论</a></li>
                     <li class="list-group-item">举报</li>
                     <li v-on:click="answerDel(answer.id)" v-if="userId==answer.user.id?true:false"
                         class="list-group-item">删除回复
@@ -43,7 +44,16 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <sample-wang-editor></sample-wang-editor>
+                        <ul class="list-group">
+                            <li class="list-group-item">An item</li>
+                            <li class="list-group-item">A second item</li>
+                            <li class="list-group-item">A third item</li>
+                            <li class="list-group-item">A fourth item</li>
+                            <li class="list-group-item">And a fifth one</li>
+                        </ul>
+                        <form style="text-align: center">
+                            <input type="text"  v-model="comment"  name="comment"> <a v-on:click="sendComment()" class="btn btn-info">发送</a>
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -52,6 +62,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 </template>
@@ -72,6 +83,9 @@ export default {
             "is_load": true,
             "like_counts": 0,
             likes: [],
+            comments: {},
+            comment:'',
+            comment_answer_id:0,
 
         };
     },
@@ -118,7 +132,6 @@ export default {
             return this.selectAll();
             console.log(data);
         },
-
         isLike(answer_id) {
 
             var data = this.likes;
@@ -131,6 +144,18 @@ export default {
             }
             return false;
         },
+       async selectComments(answer_id) {
+           this.comment_answer_id = answer_id;
+        },async sendComment() {
+
+            let{data} = await axios.post('/api/comment',{
+                type:'answer',
+                body:this.comment,
+                user_id:this.userId,
+                model:this.comment_answer_id,
+            })
+            console.log(this.comment);
+        }
 
     }
 
@@ -138,7 +163,13 @@ export default {
 </script>
 
 <style scoped>
-#exampleModal {
-    width: 1200px;
+#exampleModalLabel {
+    width: 800px;
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 600px;
+    }
 }
 </style>

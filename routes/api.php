@@ -68,6 +68,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/user-follow', 'Api\UserFollowController@follow');
     Route::get('/answer-islike', 'Api\VotesController@isLike');
     Route::post('/answer-like', 'Api\VotesController@like');
-    Route::post('/messages/store','Api\MessagesController@store');
+    Route::post('/messages/store', 'Api\MessagesController@store');
+    Route::get('answer/{id}/comments', 'Api\CommentsController@answer');
+    Route::get('question/{id}/comments', 'Api\CommentsController@question');
+    Route::post('comment', 'Api\CommentsController@store');
 });
 Route::resource('/answers', 'Api\AnswersController');

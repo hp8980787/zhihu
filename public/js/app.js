@@ -1720,40 +1720,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
+// 引入 wangEditor
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "WangEditor",
+  name: 'WangEditor',
   data: function data() {
     return {
       editor: null,
-      editorData: '',
-      is_display: true,
-      questionuser: ''
+      editorData: ''
     };
+  },
+  props: {
+    config: {
+      menus: [],
+      "default": function _default() {
+        return {
+          menus: ['bold', 'head', 'link', 'italic', 'underline']
+        };
+      }
+    }
   },
   mounted: function mounted() {
     var _this = this;
 
-    var editor = new wangeditor__WEBPACK_IMPORTED_MODULE_0___default.a("#demo1");
-    editor.config.menus = ['bold', 'head', 'link', 'italic', 'underline']; // 配置 onchange 回调函数，将数据同步到 vue 中
+    var editor = new wangeditor__WEBPACK_IMPORTED_MODULE_0___default.a("#sample-editor"); // 配置 onchange 回调函数，将数据同步到 vue 中
 
     editor.config.onchange = function (newHtml) {
       _this.editorData = newHtml;
     };
 
-    editor.config.height = 500; // 创建编辑器
+    editor.highlight = 300;
+    editor.config.menus = this.config.menus;
+    console.log(this.config.menus); // 创建编辑器
 
     editor.create();
     this.editor = editor;
   },
+  methods: {
+    getEditorData: function getEditorData() {
+      // 通过代码获取编辑器内容
+      var data = this.editor.txt.html();
+      alert(data);
+    }
+  },
   beforeDestroy: function beforeDestroy() {
-    // 销毁编辑器
+    // 调用销毁 API 对当前编辑器实例进行销毁
     this.editor.destroy();
     this.editor = null;
   }
@@ -1985,6 +1996,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 $('#myModal').on('shown.bs.modal', function () {
   $('#myInput').trigger('focus');
@@ -2000,7 +2022,10 @@ $('#myModal').on('shown.bs.modal', function () {
       answers: [],
       "is_load": true,
       "like_counts": 0,
-      likes: []
+      likes: [],
+      comments: {},
+      comment: '',
+      comment_answer_id: 0
     };
   },
   mounted: function mounted() {
@@ -2123,6 +2148,55 @@ $('#myModal').on('shown.bs.modal', function () {
       }
 
       return false;
+    },
+    selectComments: function selectComments(answer_id) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _this4.comment_answer_id = answer_id;
+
+              case 1:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    sendComment: function sendComment() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var _yield$axios$post2, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return axios.post('/api/comment', {
+                  type: 'answer',
+                  body: _this5.comment,
+                  user_id: _this5.userId,
+                  model: _this5.comment_answer_id
+                });
+
+              case 2:
+                _yield$axios$post2 = _context5.sent;
+                data = _yield$axios$post2.data;
+                console.log(_this5.comment);
+
+              case 5:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
     }
   }
 });
@@ -6702,7 +6776,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".editor {\n  height: 400px;\n  width: 800px;\n}", ""]);
+exports.push([module.i, ".home {\n  width: 400px;\n  margin: auto;\n  position: relative;\n  z-index: 99999;\n}\n.home .btn {\n  position: absolute;\n  right: 0;\n  top: 0;\n  padding: 5px 10px;\n  cursor: pointer;\n}\n.home h3 {\n  margin: 30px 0 15px;\n}", ""]);
 
 // exports
 
@@ -6740,7 +6814,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#exampleModal[data-v-4764bad8] {\n    width: 1200px;\n}\n", ""]);
+exports.push([module.i, "\n#exampleModalLabel[data-v-4764bad8] {\n    width: 800px;\n}\n@media (min-width: 576px) {\n.modal-dialog[data-v-4764bad8] {\n        max-width: 600px;\n}\n}\n", ""]);
 
 // exports
 
@@ -43094,48 +43168,33 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "editor", staticStyle: { transition: "0.3s" } },
-    [
-      _c("form", { attrs: { action: "" } }, [
-        _c("h4", [
-          _c("span", [_vm._v("To")]),
-          _vm._v(":" + _vm._s(_vm.questionuser))
-        ]),
-        _vm._v(" "),
-        _c("div", { attrs: { id: "demo1" } }),
-        _vm._v(" "),
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.editorData,
-              expression: "editorData"
-            }
-          ],
-          staticStyle: { display: "none" },
-          attrs: { name: "", id: "", cols: "170", rows: "20", readonly: "" },
-          domProps: { value: _vm.editorData },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.editorData = $event.target.value
-            }
+  return _c("div", { staticClass: "home" }, [
+    _c("h3", [_vm._v("wangEditor with vue")]),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "sample-editor" } }),
+    _vm._v(" "),
+    _c("textarea", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.editorData,
+          expression: "editorData"
+        }
+      ],
+      staticStyle: { display: "none" },
+      attrs: { name: "", id: "", cols: "170", rows: "20", readonly: "" },
+      domProps: { value: _vm.editorData },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
           }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-info", attrs: { type: "button" } },
-          [_vm._v("发送")]
-        )
-      ])
-    ]
-  )
+          _vm.editorData = $event.target.value
+        }
+      }
+    })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -43345,7 +43404,25 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(0, true),
+                _c("li", { staticClass: "list-group-item" }, [
+                  _c(
+                    "a",
+                    {
+                      staticStyle: { color: "#4e555b" },
+                      attrs: {
+                        "data-toggle": "modal",
+                        "data-target": "#exampleModal",
+                        href: "javascript:;"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.selectComments(answer.id)
+                        }
+                      }
+                    },
+                    [_vm._v("评论")]
+                  )
+                ]),
                 _vm._v(" "),
                 _c("li", { staticClass: "list-group-item" }, [_vm._v("举报")]),
                 _vm._v(" "),
@@ -43385,14 +43462,47 @@ var render = function() {
           [
             _c("div", { staticClass: "modal-dialog" }, [
               _c("div", { staticClass: "modal-content" }, [
-                _vm._m(1),
+                _vm._m(0),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "modal-body" },
-                  [_c("sample-wang-editor")],
-                  1
-                ),
+                _c("div", { staticClass: "modal-body" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("form", { staticStyle: { "text-align": "center" } }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.comment,
+                          expression: "comment"
+                        }
+                      ],
+                      attrs: { type: "text", name: "comment" },
+                      domProps: { value: _vm.comment },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.comment = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-info",
+                        on: {
+                          click: function($event) {
+                            return _vm.sendComment()
+                          }
+                        }
+                      },
+                      [_vm._v("发送")]
+                    )
+                  ])
+                ]),
                 _vm._v(" "),
                 _vm._m(2)
               ])
@@ -43402,25 +43512,6 @@ var render = function() {
       ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "list-group-item" }, [
-      _c(
-        "a",
-        {
-          staticStyle: { color: "#4e555b" },
-          attrs: {
-            "data-toggle": "modal",
-            "data-target": "#exampleModal",
-            href: "javascript:;"
-          }
-        },
-        [_vm._v("回复")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -43444,6 +43535,22 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "list-group" }, [
+      _c("li", { staticClass: "list-group-item" }, [_vm._v("An item")]),
+      _vm._v(" "),
+      _c("li", { staticClass: "list-group-item" }, [_vm._v("A second item")]),
+      _vm._v(" "),
+      _c("li", { staticClass: "list-group-item" }, [_vm._v("A third item")]),
+      _vm._v(" "),
+      _c("li", { staticClass: "list-group-item" }, [_vm._v("A fourth item")]),
+      _vm._v(" "),
+      _c("li", { staticClass: "list-group-item" }, [_vm._v("And a fifth one")])
     ])
   },
   function() {
