@@ -19,4 +19,11 @@ class Message extends Model
         return $this->belongsTo(User::class, 'to_user_id', 'id');
 
     }
+
+    public function hasRed()
+    {
+        $this->has_read = 'T';
+        $this->read_at = now();
+        $this->save();
+    }
 }

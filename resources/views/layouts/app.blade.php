@@ -54,7 +54,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <img class="bells" src="/image/bells.png" alt="bells">
+                                <a href="{{ route('messages') }}"> <img class="bells" src="/image/bells.png" alt="bells"></a>
                                 <span class="bells-count">{{ sizeof(Auth::user()->unreadNotifications) }}</span>
                             </li>
                             <li class="nav-item dropdown">

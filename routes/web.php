@@ -27,5 +27,6 @@ Route::post('questions/{question}/answer','AnswersController@store')->name('answ
 
 Route::get('questions/{question}/follow','QuestionFollowController@follow')->name('questions.follow')->middleware('auth');
 
-Route::get('notifications','NotificationsController@index')->name('messages');
+Route::get('messages','NotificationsController@index')->name('messages');
 
+Route::get('notifications','NotificationsController@notifications')->name('notifications');

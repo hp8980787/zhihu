@@ -2007,6 +2007,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 $('#myModal').on('shown.bs.modal', function () {
   $('#myInput').trigger('focus');
@@ -2062,9 +2078,8 @@ $('#myModal').on('shown.bs.modal', function () {
                 answers = data.answers, likes = data.likes;
                 _this.answers = answers;
                 _this.likes = likes;
-                console.log(data);
 
-              case 8:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -2153,13 +2168,22 @@ $('#myModal').on('shown.bs.modal', function () {
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var _yield$axios$get2, data;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _this4.comment_answer_id = answer_id;
+                _context4.next = 3;
+                return axios.get('/api/answer/' + answer_id + '/comments');
 
-              case 1:
+              case 3:
+                _yield$axios$get2 = _context4.sent;
+                data = _yield$axios$get2.data;
+                _this4.comments = data.data;
+
+              case 6:
               case "end":
                 return _context4.stop();
             }
@@ -2188,9 +2212,8 @@ $('#myModal').on('shown.bs.modal', function () {
               case 2:
                 _yield$axios$post2 = _context5.sent;
                 data = _yield$axios$post2.data;
-                console.log(_this5.comment);
 
-              case 5:
+              case 4:
               case "end":
                 return _context5.stop();
             }
@@ -6814,7 +6837,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#exampleModalLabel[data-v-4764bad8] {\n    width: 800px;\n}\n@media (min-width: 576px) {\n.modal-dialog[data-v-4764bad8] {\n        max-width: 600px;\n}\n}\n", ""]);
+exports.push([module.i, "\n#exampleModalLabel[data-v-4764bad8] {\n    width: 800px;\n}\n.message[data-v-4764bad8] {\n    margin-top: 50px;\n}\n@media (min-width: 576px) {\n.modal-dialog[data-v-4764bad8] {\n        max-width: 600px;\n}\n}\n", ""]);
 
 // exports
 
@@ -43420,7 +43443,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("评论")]
+                    [_vm._v("评论 ( " + _vm._s(answer.comments_count) + " ) ")]
                   )
                 ]),
                 _vm._v(" "),
@@ -43465,46 +43488,103 @@ var render = function() {
                 _vm._m(0),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-body" }, [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c("form", { staticStyle: { "text-align": "center" } }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.comment,
-                          expression: "comment"
-                        }
-                      ],
-                      attrs: { type: "text", name: "comment" },
-                      domProps: { value: _vm.comment },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.comment = $event.target.value
-                        }
-                      }
+                  _c(
+                    "ul",
+                    { staticClass: "list-group" },
+                    _vm._l(_vm.comments, function(comment) {
+                      return _c("li", { staticClass: "list-group-item" }, [
+                        _c("div", { staticClass: "card" }, [
+                          _c("div", { staticClass: "card-header" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "float-left",
+                                attrs: { width: "50%" }
+                              },
+                              [
+                                _c("a", { attrs: { href: "javascript:;" } }, [
+                                  _c("img", {
+                                    attrs: {
+                                      width: "30px",
+                                      src: comment.user.avatar,
+                                      alt: comment.user.name
+                                    }
+                                  }),
+                                  _vm._v(" " + _vm._s(comment.user.name))
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "float-right" }, [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "float-left",
+                                  attrs: { href: "javascript:;" }
+                                },
+                                [_vm._v(_vm._s(comment.created_at))]
+                              )
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "card-text" }, [
+                          _c("span", {
+                            domProps: { innerHTML: _vm._s(comment.body) }
+                          })
+                        ])
+                      ])
                     }),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-info",
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      staticClass: "message",
+                      staticStyle: { "text-align": "center" }
+                    },
+                    [
+                      _c("p"),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.comment,
+                            expression: "comment"
+                          }
+                        ],
+                        attrs: { type: "text", name: "comment" },
+                        domProps: { value: _vm.comment },
                         on: {
-                          click: function($event) {
-                            return _vm.sendComment()
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.comment = $event.target.value
                           }
                         }
-                      },
-                      [_vm._v("发送")]
-                    )
-                  ])
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-info",
+                          on: {
+                            click: function($event) {
+                              return _vm.sendComment()
+                            }
+                          }
+                        },
+                        [_vm._v("发送")]
+                      )
+                    ]
+                  )
                 ]),
                 _vm._v(" "),
-                _vm._m(2)
+                _vm._m(1)
               ])
             ])
           ]
@@ -43535,22 +43615,6 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "list-group" }, [
-      _c("li", { staticClass: "list-group-item" }, [_vm._v("An item")]),
-      _vm._v(" "),
-      _c("li", { staticClass: "list-group-item" }, [_vm._v("A second item")]),
-      _vm._v(" "),
-      _c("li", { staticClass: "list-group-item" }, [_vm._v("A third item")]),
-      _vm._v(" "),
-      _c("li", { staticClass: "list-group-item" }, [_vm._v("A fourth item")]),
-      _vm._v(" "),
-      _c("li", { staticClass: "list-group-item" }, [_vm._v("And a fifth one")])
     ])
   },
   function() {

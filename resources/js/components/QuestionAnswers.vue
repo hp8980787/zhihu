@@ -22,9 +22,10 @@
                             <i v-bind:class="isLike(answer.id)?'question-unlike':'question-like'"
                                v-text="isLike(answer.id)?'取消关注':'喜欢'"
                                class="fa fa-heart"></i></a></li>
-                    <li class="list-group-item"><a v-on:click="selectComments(answer.id)" style="color:#4e555b"
-                                                   data-toggle="modal" data-target="#exampleModal"
-                                                   href="javascript:;">评论</a></li>
+                    <li class="list-group-item">
+                        <a v-on:click="selectComments(answer.id)" style="color:#4e555b"
+                           data-toggle="modal" data-target="#exampleModal"
+                           href="javascript:;">评论 ( {{ answer.comments_count }} ) </a></li>
                     <li class="list-group-item">举报</li>
                     <li v-on:click="answerDel(answer.id)" v-if="userId==answer.user.id?true:false"
                         class="list-group-item">删除回复
@@ -45,14 +46,29 @@
                     </div>
                     <div class="modal-body">
                         <ul class="list-group">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
-                            <li class="list-group-item">A fourth item</li>
-                            <li class="list-group-item">And a fifth one</li>
+                            <li v-for="comment in comments" class="list-group-item">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div width="50%" class="float-left">
+                                            <a href="javascript:;"> <img width="30px" :src="comment.user.avatar"
+                                                                         :alt="comment.user.name"> {{
+                                                    comment.user.name
+                                                }}</a>
+                                        </div>
+                                        <div class="float-right">
+                                            <a class="float-left" href="javascript:;">{{ comment.created_at }}</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <p class="card-text"><span v-html="comment.body"></span></p>
+                            </li>
+
                         </ul>
-                        <form style="text-align: center">
-                            <input type="text"  v-model="comment"  name="comment"> <a v-on:click="sendComment()" class="btn btn-info">发送</a>
+                        <form class="message" style="text-align: center">
+                            <p></p>
+                            <input type="text" v-model="comment" name="comment"> <a v-on:click="sendComment()"
+                                                                                    class="btn btn-info">发送</a>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -84,8 +100,8 @@ export default {
             "like_counts": 0,
             likes: [],
             comments: {},
-            comment:'',
-            comment_answer_id:0,
+            comment: '',
+            comment_answer_id: 0,
 
         };
     },
@@ -110,7 +126,6 @@ export default {
             let {answers, likes} = data;
             this.answers = answers;
             this.likes = likes;
-            console.log(data);
         },
         async selectAll() {
             let {data} = await axios.get('/api/answers?question=' + this.question);
@@ -144,17 +159,18 @@ export default {
             }
             return false;
         },
-       async selectComments(answer_id) {
-           this.comment_answer_id = answer_id;
-        },async sendComment() {
+        async selectComments(answer_id) {
+            this.comment_answer_id = answer_id;
+            let {data} = await axios.get('/api/answer/' + answer_id + '/comments');
+            this.comments = data.data;
+        }, async sendComment() {
 
-            let{data} = await axios.post('/api/comment',{
-                type:'answer',
-                body:this.comment,
-                user_id:this.userId,
-                model:this.comment_answer_id,
-            })
-            console.log(this.comment);
+            let {data} = await axios.post('/api/comment', {
+                type: 'answer',
+                body: this.comment,
+                user_id: this.userId,
+                model: this.comment_answer_id,
+            });
         }
 
     }
@@ -165,6 +181,11 @@ export default {
 <style scoped>
 #exampleModalLabel {
     width: 800px;
+
+}
+
+.message {
+    margin-top: 50px;
 }
 
 @media (min-width: 576px) {

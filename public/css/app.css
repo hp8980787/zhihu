@@ -14092,3 +14092,7 @@ a.text-dark:focus {
   color: #4e555b;
 }
 
+.messages-notifications li a {
+  color: black;
+}
+

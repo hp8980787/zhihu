@@ -18,7 +18,7 @@ class CreateMessagesTable extends Migration
             $table->unsignedBigInteger('to_user_id')->index();
             $table->unsignedBigInteger('from_user_id')->index();
             $table->text('body');
-            $table->string('has_red', 8)->default('F');
+            $table->string('has_read', 8)->default('F');
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
